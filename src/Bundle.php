@@ -8,7 +8,7 @@ class Bundle extends AssetBundle
 {
     public function init()
     {
-        $this->sourcePath = '@modules/sample/resources';
+        $this->sourcePath = '@viget/base/resources';
 
         $this->css = [
             'style.css',

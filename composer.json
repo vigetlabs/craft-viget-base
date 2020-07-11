@@ -1,0 +1,36 @@
+{
+    "name": "viget/craft-viget-base",
+    "description": "Viget Base Module",
+    "type": "yii2-module",
+    "version": "1.0.0",
+    "keywords": [
+        "craft",
+        "cms",
+        "craftcms"
+    ],
+    "support": {
+        "docs": "https://github.com/vigetlabs/craft-starter-module/blob/main/README.md",
+        "issues": "https://github.com/vigetlabs/craft-starter-module/issues"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Trevor Davis",
+            "homepage": "https://www.viget.com/"
+        }
+    ],
+    "require": {
+        "craftcms/cms": "^3.1"
+    },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://asset-packagist.org"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+          "viget\\base\\": "src/"
+        }
+    }
+}

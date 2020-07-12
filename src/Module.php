@@ -26,7 +26,7 @@ class Module extends \yii\base\Module
      */
     public function init()
     {
-        Craft::setAlias('@viget/base', $this->getBasePath());
+        Craft::setAlias('@viget/base', __DIR__);
         $this->controllerNamespace = 'viget\base\controllers';
 
         parent::init();

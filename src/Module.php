@@ -7,10 +7,12 @@ use yii\base\Event;
 use craft\events\RegisterCpNavItemsEvent;
 use craft\web\twig\variables\Cp;
 use craft\web\View;
+use craft\web\twig\variables\CraftVariable;
 
+use viget\base\Bundle;
 use viget\base\twigextensions\Extension;
 use viget\base\services\CpNav;
-use viget\base\Bundle;
+use viget\base\services\Util;
 
 /**
  * Yii Module for setting up custom Twig functionality to keep templates streamlined
@@ -69,6 +71,7 @@ class Module extends \yii\base\Module
     {
         $this->setComponents([
             'cpNav' => CpNav::class,
+            'util' => Util::class,
         ]);
     }
 
@@ -79,6 +82,16 @@ class Module extends \yii\base\Module
      */
     private function _bindEvents()
     {
+        // Bind to craft.viget sub-object
+        Event::on(
+            CraftVariable::class,
+            CraftVariable::EVENT_INIT,
+            function(Event $e) {
+                $variable = $e->sender;
+                $variable->set('viget', self::$instance);
+            }
+        );
+
         // Add edit entry link to front-end templates
         Event::on(
             View::class,

@@ -61,3 +61,9 @@ Regardless of logged-in state or permissions, the Craft Debug Bar will always be
 ### Front-end edit entry Links
 
 When visiting an element URL on the front-end, an edit entry link to edit that element in the CP will be present in the lower left hand corner. This will always be present in the dev environment regardless of logged-in state or permissions.
+
+### Components exposed to Twig `craft.viget` sub-object
+
+#### `craft.viget.util.fillInEntries()`
+
+This method queries for additional, deduped entries to a fill a number of needed entries

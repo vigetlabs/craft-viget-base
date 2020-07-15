@@ -51,6 +51,7 @@ class Module extends \yii\base\Module
             !Craft::$app->getRequest()->getIsAjax()
         ) {
             Craft::$app->session->set('enableDebugToolbarForSite', true);
+            Craft::$app->session->set('enableDebugToolbarForCp', true);
         }
 
         Craft::info(

@@ -1,0 +1,6 @@
+{{ partial('_partials/data', {
+    title: 'World',
+}) }}
+
+{% set text = 'This text should not be available in the partial' %}
+{{ partial('_partials/no-data') }}

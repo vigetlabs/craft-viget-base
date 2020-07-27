@@ -2,7 +2,21 @@
 
 ## Test Suite Setup
 
-This repo is setup to run on docker in order to run the test suite. Once you have docker running, run `bin/codecept run` to run the suite.
+This repo utilizes Ddocker in order to run the test suite.
+
+1. Install [Docker Desktop for Mac](https://docs.docker.com/docker-for-mac/install/).
+
+2. Build the containers
+
+    Run `docker-compose build`. This will take a little while.
+
+3. Run the app
+
+    Run `docker-compose up`.
+
+4. Run the tests
+
+    Run `bin/codecept run`
 
 ## Out of the box, the module includes:
 

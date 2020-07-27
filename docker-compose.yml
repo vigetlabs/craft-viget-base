@@ -1,0 +1,47 @@
+---
+version: '3'
+
+services:
+  php:
+    image: craft_base_php
+    build:
+      context: .
+      dockerfile: ./.docker-config/php/Dockerfile
+    entrypoint: ./.docker-config/php/entrypoint.sh
+    command: [
+      "docker-php-entrypoint",
+      "php-fpm"
+    ]
+    expose:
+      - 9000
+    volumes:
+      - .:/var/www/html
+      - composer:/var/www/html/vendor
+      - runtime:/var/www/html/storage/runtime
+      - logs:/var/www/html/storage/logs
+    environment:
+      - ENVIRONMENT=dev
+      - DB_DSN=mysql:host=mysql;port=3306;dbname=craft_base_test
+      - DB_USER=craft_base
+      - DB_PASSWORD=craft_base
+      - DB_TABLE_PREFIX=
+      - SECURITY_KEY=asdfasdfasdfasdfasdf
+      - DEFAULT_SITE_URL=http://craft-base.test/
+
+  mysql:
+    image: mysql:5.7.29
+    volumes:
+      - db:/var/lib/mysql
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: craft_base
+      MYSQL_PASSWORD: craft_base
+      MYSQL_DATABASE: craft_base_test
+
+volumes:
+  db:
+  composer:
+  runtime:
+  logs:

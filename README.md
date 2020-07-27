@@ -1,3 +1,9 @@
+# Craft Viget Base Module
+
+## Test Suite Setup
+
+This repo is setup to run on docker in order to run the test suite. Once you have docker running, run `bin/codecept run` to run the suite.
+
 ## Out of the box, the module includes:
 
 ### Custom partial() Twig method

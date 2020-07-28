@@ -13,6 +13,7 @@ use viget\base\Bundle;
 use viget\base\twigextensions\Extension;
 use viget\base\services\CpNav;
 use viget\base\services\Util;
+use viget\base\services\PhoneHome;
 
 /**
  * Yii Module for setting up custom Twig functionality to keep templates streamlined
@@ -44,13 +45,18 @@ class Module extends \yii\base\Module
 
         if (Craft::$app->request->getIsCpRequest()) {
             $this->_bindCpEvents();
+
+            // Phone home for Airtable inventory
+            if (!Craft::$app->request->getIsAjax()) {
+                PhoneHome::makeCall();
+            }
         }
 
         // Always turn on the debug bar in dev environment
         if (
             getenv('ENVIRONMENT') === 'dev' &&
-            !Craft::$app->getRequest()->getIsConsoleRequest() &&
-            !Craft::$app->getRequest()->getIsAjax()
+            !Craft::$app->request->getIsConsoleRequest() &&
+            !Craft::$app->request->getIsAjax()
         ) {
             Craft::$app->session->set('enableDebugToolbarForSite', true);
             Craft::$app->session->set('enableDebugToolbarForCp', true);
@@ -98,7 +104,7 @@ class Module extends \yii\base\Module
             View::EVENT_END_BODY,
             function(Event $e) {
                 $element = Craft::$app->getUrlManager()->getMatchedElement();
-                
+
                 if (!$element) return;
 
                 $currentUser = Craft::$app->getUser()->identity ?? null;

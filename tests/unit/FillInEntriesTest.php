@@ -1,6 +1,6 @@
 <?php
 
-namespace viget\base\tests;
+namespace vigetbasetests\unit;
 
 use Codeception\Test\Unit;
 
@@ -9,7 +9,7 @@ use Craft;
 use craft\elements\Entry;
 
 use viget\base\Module;
-use viget\base\tests\fixtures\EntriesFixture;
+use vigetbasetests\fixtures\EntriesFixture;
 
 class FillInEntriesTest extends Unit
 {

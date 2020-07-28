@@ -1,10 +1,9 @@
 <?php
 
-namespace viget\base\tests\fixtures;
+namespace vigetbasetests\fixtures;
 
 use craft\records\EntryType;
 use craft\test\Fixture;
-use viget\base\tests\fixtures\SectionsFixture;
 
 class EntryTypesFixture extends Fixture
 {

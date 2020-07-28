@@ -1,5 +1,7 @@
 <?php
 
+namespace vigetbasetests\functional;
+
 use FunctionalTester;
 
 class PartialCest

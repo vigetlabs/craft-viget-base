@@ -1,12 +1,11 @@
 <?php
 
-namespace viget\base\tests\fixtures;
+namespace vigetbasetests\fixtures;
 
 use Craft;
 use craft\records\Section;
 use craft\services\Sections;
 use craft\test\Fixture;
-use viget\base\tests\fixtures\SectionSettingsFixture;
 
 
 class SectionsFixture extends Fixture

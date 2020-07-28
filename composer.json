@@ -40,7 +40,7 @@
     "autoload": {
         "psr-4": {
             "viget\\base\\": "src/",
-            "viget\\base\\tests\\fixtures\\": "tests/fixtures/"
+            "vigetbasetests\\fixtures\\": "tests/fixtures/"
         }
     }
 }

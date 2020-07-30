@@ -4,6 +4,7 @@ namespace viget\base;
 
 use Craft;
 use craft\web\AssetBundle;
+use viget\base\services\PartsKit;
 
 class Bundle extends AssetBundle
 {
@@ -16,7 +17,7 @@ class Bundle extends AssetBundle
         ];
 
         // Is this a parts kit request
-        if (($firstSegment = Craft::$app->request->segments[0] ?? null) === 'parts-kit') {
+        if (($firstSegment = Craft::$app->request->segments[0] ?? null) === PartsKit::getConfig('directory')) {
             $css[] = 'css/parts-kit.css';
 
             $this->js = [

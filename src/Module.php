@@ -42,7 +42,9 @@ class Module extends \yii\base\Module
 
             Craft::$app->view->registerTwigExtension(new Extension());
 
-            $this->view->registerAssetBundle(Bundle::class);
+            if (!Craft::$app->request->getIsAjax() && !Craft::$app->request->getIsConsoleRequest()) {
+                $this->view->registerAssetBundle(Bundle::class);
+            }
         }
 
         if (Craft::$app->request->getIsCpRequest()) {

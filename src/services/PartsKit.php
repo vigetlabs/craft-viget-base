@@ -16,13 +16,35 @@ use Twig\Markup;
 class PartsKit
 {
     /**
+     * Get a config item either the default or from the config file
+     *
+     * @param string $key
+     * @return string|null
+     */
+    public static function getConfig(string $key): ?string
+    {
+        $config = array_merge(
+            [
+                'directory' => 'parts-kit',
+                'layout' => '_layouts/app',
+                'volume' => 'partsKit',
+            ],
+            Craft::$app->config->getConfigFromFile('parts-kit')
+        );
+
+        return $config[$key] ?? null;
+    }
+
+    /**
      * Get navigation of files/folders in parts kit
      *
      * @return array|null
      */
     public static function getNav(): ?array
     {
-        $templates = self::_getTemplates();
+        $partsKitDir = self::getConfig('directory');
+
+        $templates = self::_getTemplates($partsKitDir);
 
         if (empty($templates)) return null;
 
@@ -40,7 +62,7 @@ class PartsKit
 
             foreach ($files as $file) {
                 $url = UrlHelper::siteUrl(implode('/', [
-                    'parts-kit',
+                    $partsKitDir,
                     $dir,
                     $file,
                 ]));
@@ -65,14 +87,15 @@ class PartsKit
     /**
      * Get templates in parts kit folder
      *
+     * @param string $partsKitDir
      * @return array
      */
-    private static function _getTemplates(): array
+    private static function _getTemplates(string $partsKitDir): array
     {
         $templates = [];
 
         $templatesPath = Craft::$app->getPath()->getSiteTemplatesPath();
-        $partsPath = $templatesPath . '/parts-kit/';
+        $partsPath = $templatesPath . '/' . $partsKitDir . '/';
 
         if (!is_dir($partsPath)) return [];
 
@@ -138,7 +161,7 @@ class PartsKit
      */
     public static function getImage(string $name): ?Asset
     {
-        $volume = Craft::$app->getVolumes()->getVolumeByHandle('partsKit');
+        $volume = Craft::$app->getVolumes()->getVolumeByHandle(self::getConfig('volume'));
 
         if (!$volume) return null;
 

@@ -1,0 +1,90 @@
+{% extends '_layouts/base' %}
+
+{% block content %}
+    <div class="parts-kit" data-parts-kit>
+        <aside
+            class="parts-kit__sidebar"
+            data-sidebar
+        >
+            <h2 class="parts-kit__sr-only">Parts Navigation</h2>
+
+            {% set navSections = craft.viget.partsKit.getNav() %}
+
+            {% if navSections %}
+                <ol class="parts-kit__nav">
+                    {% for title, section in navSections %}
+                        {% set id = "nav-section-#{loop.index}" %}
+
+                        <li data-parts-kit-toggle>
+                            <button
+                                class="parts-kit__button parts-kit__nav-button"
+                                aria-controls="{{ id }}"
+                                aria-expanded="false"
+                            >
+                                <div class="flex">
+                                    {{ svg(
+                                        '@viget/base/resources/icons/caret.svg',
+                                        class='parts-kit__nav-caret'
+                                    ) }}
+                                    {{ svg(
+                                        '@viget/base/resources/icons/pk-component.svg',
+                                        class='parts-kit__nav-component'
+                                    ) }}
+                                    <h3>{{ title | title }}</h3>
+                                </div>
+                            </button>
+
+                            <ol
+                                class="parts-kit__nav-sub-items {% if not section.isActive %}collapsed{% endif %}"
+                                id="{{ id }}"
+                                data-togglee
+                            >
+                                {% for item in section.items %}
+                                    <li>
+                                        <a
+                                            href="{{ url(item.url) }}"
+                                            {% if item.isActive %}class="active"{% endif %}
+                                        >
+                                            <div class="flex">
+                                                {{ svg(
+                                                    '@viget/base/resources/icons/pk-sidebar.svg',
+                                                    class='parts-kit__nav-story'
+                                                ) }}
+                                                {{ item.title }}
+                                            </div>
+                                        </a>
+                                    </li>
+                                {% endfor %}
+                            </ol>
+                        </li>
+                    {% endfor %}
+                </ol>
+            {% endif %}
+        </aside>
+
+        <div class="parts-kit__main">
+            <div class="parts-kit__main-wrapper">
+                <div class="parts-kit__main-header">
+                    <button
+                        class="parts-kit__button hidden hover:text-robins-egg"
+                        data-fullscreen-expand
+                    >
+                        <span class="parts-kit__sr-only">Expand</span>
+                        {{ svg('@viget/base/resources/icons/pk-expand.svg') }}
+                    </button>
+                    <button
+                        class="parts-kit__button hidden hover:text-robins-egg"
+                        data-fullscreen-close
+                    >
+                        <span class="parts-kit__sr-only">Close</span>
+                        {{ svg('@viget/base/resources/icons/close-circle.svg') }}
+                    </button>
+                </div>
+
+                <div class="parts-kit__main-container">
+                    {% block main %}{% endblock %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

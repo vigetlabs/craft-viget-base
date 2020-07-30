@@ -1,0 +1,166 @@
+.parts-kit {
+    background: #ededed;
+    display: flex;
+}
+
+.parts-kit__sr-only {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+}
+
+.parts-kit__button {
+    background: none;
+    border: none;
+    box-sizing: border-box;
+    color: inherit;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    line-height: inherit;
+    margin: 0;
+    padding: 0;
+    text-transform: inherit;
+}
+
+/* Sidebar */
+.parts-kit__sidebar {
+    background: #ededed;
+    box-sizing: border-box;
+    color: #202020;
+    flex-shrink: 0;
+    font-family: BlinkMacSystemFont, sans-serif;
+    min-height: 100vh;
+    padding: 2rem 0 .75rem;
+    width: 210px;
+}
+
+.parts-kit__sidebar.hidden {
+    display: none;
+}
+
+.parts-kit__sidebar * {
+    font: inherit;
+    font-size: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.parts-kit__sidebar *,
+.parts-kit__sidebar *:before,
+.parts-kit__sidebar *:after {
+    box-sizing: inherit;
+}
+
+.parts-kit__sidebar ol {
+    list-style: none;
+}
+
+.parts-kit__sidebar .flex {
+    display: flex;
+}
+
+.parts-kit__nav {
+    font-size: .875rem;
+}
+
+.parts-kit__nav-button {
+    padding: .25rem;
+    width: 100%;
+}
+
+.parts-kit__nav-button:hover {
+    background-color: #dbdbdb;
+}
+
+.parts-kit__nav-caret,
+.parts-kit__nav-component,
+.parts-kit__nav-story {
+    display: block;
+    fill: #148bbe;
+    margin-right: .25rem;
+    width: .625rem;
+}
+
+.parts-kit__nav-caret {
+    transform: rotate(180deg);
+}
+
+.parts-kit__nav-sub-items[data-togglee] {
+    opacity: 1;
+	transition: all .15s;
+	visibility: visible;
+}
+
+.parts-kit__nav-sub-items.collapsed {
+    max-height: 0!important;
+    opacity: 0;
+    overflow: hidden;
+    visibility: hidden;
+}
+
+.parts-kit__nav-sub-items a {
+    color: inherit;
+    display: block;
+    font-size: .875rem;
+    padding: .25rem 1.5rem;
+    text-decoration: none;
+}
+
+.parts-kit__nav-sub-items a:hover {
+    background-color: #dbdbdb;
+}
+
+.parts-kit__nav-sub-items a.active {
+    background: #148bbe;
+    color: #fff;
+}
+
+.parts-kit__nav-sub-items a.active .parts-kit__nav-story {
+    fill: currentColor;
+}
+
+/* Main Container */
+.parts-kit__main {
+    flex-grow: 1;
+    margin-right: .5rem;
+    min-height: 100vh;
+    min-width: 0;
+    padding: .5rem 0;
+}
+
+.parts-kit__main-header {
+    border-bottom: 1px solid #dbdbdb;
+    color: #a7a9ac;
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: .75rem;
+    padding: .375rem .75rem;
+}
+
+.parts-kit__main-header button.hidden {
+    display: none;
+}
+
+.parts-kit__main-header svg {
+    display: block;
+    fill: currentColor;
+    width: 1rem;
+}
+
+.parts-kit__main-wrapper {
+    background: #fff;
+    border-radius: .25rem;
+    box-shadow: 0 10px 18px rgba(0, 0, 0, 0.25);
+    height: 100%;
+}
+
+.parts-kit__main-container {
+    position: relative;
+}

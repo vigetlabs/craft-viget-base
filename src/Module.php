@@ -5,6 +5,7 @@ namespace viget\base;
 use Craft;
 use yii\base\Event;
 use craft\events\RegisterCpNavItemsEvent;
+use craft\events\RegisterTemplateRootsEvent;
 use craft\web\twig\variables\Cp;
 use craft\web\View;
 use craft\web\twig\variables\CraftVariable;
@@ -14,6 +15,7 @@ use viget\base\twigextensions\Extension;
 use viget\base\services\CpNav;
 use viget\base\services\Util;
 use viget\base\services\PhoneHome;
+use viget\base\services\PartsKit;
 
 /**
  * Yii Module for setting up custom Twig functionality to keep templates streamlined
@@ -24,8 +26,6 @@ class Module extends \yii\base\Module
 
     /**
      * Initializes the module.
-     *
-     * @return void
      */
     public function init()
     {
@@ -41,6 +41,8 @@ class Module extends \yii\base\Module
             $this->_bindEvents();
 
             Craft::$app->view->registerTwigExtension(new Extension());
+
+            $this->view->registerAssetBundle(Bundle::class);
         }
 
         if (Craft::$app->request->getIsCpRequest()) {
@@ -70,21 +72,18 @@ class Module extends \yii\base\Module
 
     /**
      * Set components (services) on the module
-     *
-     * @return void
      */
     private function _setComponents()
     {
         $this->setComponents([
             'cpNav' => CpNav::class,
             'util' => Util::class,
+            'partsKit' => PartsKit::class,
         ]);
     }
 
     /**
      * Bind actions onto Craft front-end events
-     *
-     * @return void
      */
     private function _bindEvents()
     {
@@ -113,8 +112,6 @@ class Module extends \yii\base\Module
                     Craft::$app->config->general->devMode ||
                     ($currentUser && $currentUser->can('accessCp'))
                 ) {
-                    $this->view->registerAssetBundle(Bundle::class);
-
                     echo '<a
                             href="' . $element->cpEditUrl . '"
                             class="edit-entry"
@@ -126,12 +123,23 @@ class Module extends \yii\base\Module
                 }
             }
         );
+
+        // Define template directory for site
+        if (($firstSegment = Craft::$app->request->segments[0] ?? null) === 'parts-kit') {
+            Event::on(
+                View::class,
+                View::EVENT_REGISTER_SITE_TEMPLATE_ROOTS,
+                function (RegisterTemplateRootsEvent $e) {
+                    if (is_dir($baseDir = __DIR__ . DIRECTORY_SEPARATOR . 'templates')) {
+                        $e->roots['viget-base'] = $baseDir;
+                    }
+                }
+            );
+        }
     }
 
     /**
      * Bind actions onto Craft CP events
-     *
-     * @return void
      */
     private function _bindCpEvents()
     {

@@ -10,9 +10,9 @@ A [Storybook](https://storybook.js.org/)-esque parts kit framework comes bundled
 
 ## Setup
 
-Inside of your `templates` folder, create a `parts-kit` folder. The module will automatically read all subfolders and files and generate a navigation.
+Inside of your `templates` directory, create a `parts-kit` directory. The module will automatically read all subdirectories and files and generate a navigation.
 
-**Note: This only supports one level of subfolders.**
+**Note: This only supports one level of subdirectories.**
 
 ### Example Directory Structure
 
@@ -43,7 +43,7 @@ Your parts kit files will need to use the layout that comes with this module:
 {% endblock %}
 ```
 
-This layout extends from the `_layouts/app` file that lives in your templates directory. This also makes the assumption that the block being used in your layout is named `content`
+This layout extends from the `_layouts/app` file that lives in your `templates` directory. This also makes the assumption that the block being used in your layout is named `content`
 
 ## Cusomization
 

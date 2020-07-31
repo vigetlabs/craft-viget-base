@@ -20,11 +20,11 @@ Inside of your `templates` folder, create a `parts-kit` folder. The module will 
 |-- templates
     |-- parts-kit
         |-- button
-            |-- default.html
             |-- blue.html
-        |-- cta
             |-- default.html
+        |-- cta
             |-- dark.html
+            |-- default.html
 ```
 
 This would generate the following navigation:

@@ -94,8 +94,8 @@
 
 .parts-kit__nav-sub-items[data-togglee] {
     opacity: 1;
-	transition: all .15s;
-	visibility: visible;
+    transition: all .15s;
+    visibility: visible;
 }
 
 .parts-kit__nav-sub-items.collapsed {

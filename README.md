@@ -1,3 +1,3 @@
 # Craft Viget Base Module
 
-[Docs](#TODO)
+[Docs](https://github.com/vigetlabs/craft-viget-base/tree/main/docs)

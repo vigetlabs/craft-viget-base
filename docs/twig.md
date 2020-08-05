@@ -12,19 +12,23 @@ The base modules adds custom functionality to Twig
 
 The custom `partial()` Twig method as a shorthand for:
 
+<!-- {% raw %} -->
 ```twig
 {% include 'path/to/file' ignore missing with {
     key: 'value',
 } only %}
 ```
+<!-- {% endraw %} -->
 
 With this module enabled, to prevent leaky templates you should do:
 
+<!-- {% raw %} -->
 ```twig
 {{ partial('path/to/file', {
     key: 'value',
 }) }}
 ```
+<!-- {% endraw %} -->
 
 ## Components exposed to Twig `craft.viget` sub-object
 
@@ -47,6 +51,7 @@ Returns: `array`
 
 Example:
 
+<!-- {% raw %} -->
 ```twig
 {% set featuredArticles = craft.viget.util.fillInEntries(
     entry.featuredArticles,
@@ -56,3 +61,4 @@ Example:
     4
 ) %}
 ```
+<!-- {% endraw %} -->

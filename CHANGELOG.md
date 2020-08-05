@@ -1,5 +1,11 @@
 # Release Notes for Viget Base Module
 
+## 1.2.0 - 2020-08-04
+
+- Add Storybook style parts kit
+- Add parts kit helper methods
+- Add docs folder
+
 ## 1.1.0 - 2020-07-28
 
 - Automatically enable debug bar for CP when in devMode

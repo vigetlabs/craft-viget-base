@@ -89,12 +89,14 @@ Returns: `Asset|null`
 
 Example:
 
+{% raw %}
 ```twig
 {% set partsKitImage = craft.viget.partsKit.getImage('350x230.png') %}
 {% if partsKitImage %}
     <img src="{{ partsKitImage.url }}" alt="">
 {% endif %}
 ```
+{% endraw %}
 
 #### `getText($words)`
 

@@ -6,7 +6,7 @@ nav_order: 2
 
 # Control Panel
 
-## Customzed CP Navigation
+## Customized CP Navigation
 
 When in `devMode`, we are customizing the Craft CP navigation via a `/config/dev.php` (which should be gitignored). By default, we are adding links to **Sections** and **Fields** (controlled by `useDefaults`), and the three most **recent entries**. You can add links by adding to `navItems`.
 

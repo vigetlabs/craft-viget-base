@@ -17,7 +17,7 @@ class Bundle extends AssetBundle
         ];
 
         // Is this a parts kit request
-        if (($firstSegment = Craft::$app->request->segments[0] ?? null) === PartsKit::getConfig('directory')) {
+        if (PartsKit::isRequest()) {
             $css[] = 'css/parts-kit.css';
 
             $this->js = [

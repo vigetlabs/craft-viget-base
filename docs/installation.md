@@ -36,3 +36,7 @@ AIRTABLE_BASE
 ```
 
 Using the base ID from the Craft Inventory Airtable and the API key from 1Password for the Viget Airtable account.
+
+### Delete code
+
+If you used anything that was previously in the [Starter Module](https://github.com/vigetlabs/craft-starter-module), you can likely delete a bunch of code from your module. Carefully examine the docs to see what you can remove.

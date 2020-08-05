@@ -35,7 +35,7 @@ This would generate the following navigation:
 
 Your parts kit files will need to use the layout that comes with this module:
 
-{% raw %}
+<!-- {% raw %} -->
 ```twig
 {% extends 'viget-base/_layouts/parts-kit' %}
 
@@ -43,7 +43,7 @@ Your parts kit files will need to use the layout that comes with this module:
     Here is your component code
 {% endblock %}
 ```
-{% endraw %}
+<!-- {% endraw %} -->
 
 This layout extends from the `_layouts/app` file that lives in your `templates` directory. This also makes the assumption that the block being used in your layout is named `content`
 
@@ -89,14 +89,14 @@ Returns: `Asset|null`
 
 Example:
 
-{% raw %}
+<!-- {% raw %} -->
 ```twig
 {% set partsKitImage = craft.viget.partsKit.getImage('350x230.png') %}
 {% if partsKitImage %}
     <img src="{{ partsKitImage.url }}" alt="">
 {% endif %}
 ```
-{% endraw %}
+<!-- {% endraw %} -->
 
 #### `getText($words)`
 
@@ -112,9 +112,11 @@ Returns: `string`
 
 Example:
 
+<!-- {% raw %} -->
 ```twig
 <p>{{ craft.viget.partsKit.getText(40) }}</p>
 ```
+<!-- {% endraw %} -->
 
 #### `getTitle($words)`
 
@@ -130,9 +132,11 @@ Returns: `string`
 
 Example:
 
+<!-- {% raw %} -->
 ```twig
 <p>{{ craft.viget.partsKit.getTitle(10) }}</p>
 ```
+<!-- {% endraw %} -->
 
 #### `getSentence($words)`
 
@@ -148,9 +152,11 @@ Returns: `string`
 
 Example:
 
+<!-- {% raw %} -->
 ```twig
 <p>{{ craft.viget.partsKit.getSentence(10) }}</p>
 ```
+<!-- {% endraw %} -->
 
 #### `getParagraph()`
 
@@ -162,9 +168,11 @@ Returns: `string`
 
 Example:
 
+<!-- {% raw %} -->
 ```twig
 <p>{{ craft.viget.partsKit.getParagraph() }}</p>
 ```
+<!-- {% endraw %} -->
 
 #### `getRichTextShort()`
 
@@ -182,9 +190,11 @@ Returns: `Markup`
 
 Example:
 
+<!-- {% raw %} -->
 ```twig
 {{ craft.viget.partsKit.getRichTextShort() }}
 ```
+<!-- {% endraw %} -->
 
 #### `getRichTextFull()`
 
@@ -196,6 +206,8 @@ Returns: `Markup`
 
 Example:
 
+<!-- {% raw %} -->
 ```twig
 {{ craft.viget.partsKit.getRichTextFull() }}
 ```
+<!-- {% endraw %} -->

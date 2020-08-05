@@ -35,6 +35,7 @@ This would generate the following navigation:
 
 Your parts kit files will need to use the layout that comes with this module:
 
+{% raw %}
 ```twig
 {% extends 'viget-base/_layouts/parts-kit' %}
 
@@ -42,6 +43,7 @@ Your parts kit files will need to use the layout that comes with this module:
     Here is your component code
 {% endblock %}
 ```
+{% endraw %}
 
 This layout extends from the `_layouts/app` file that lives in your `templates` directory. This also makes the assumption that the block being used in your layout is named `content`
 

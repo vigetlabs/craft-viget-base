@@ -16,6 +16,16 @@ use Twig\Markup;
 class PartsKit
 {
     /**
+     * Determine if this is a request to the parts kit
+     *
+     * @return boolean
+     */
+    public static function isRequest(): bool
+    {
+        return (Craft::$app->request->segments[0] ?? null) === self::getConfig('directory');
+    }
+
+    /**
      * Get a config item either the default or from the config file
      *
      * @param string $key

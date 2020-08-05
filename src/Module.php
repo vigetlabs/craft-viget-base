@@ -126,8 +126,8 @@ class Module extends \yii\base\Module
             }
         );
 
-        // Define template directory for site
-        if (($firstSegment = Craft::$app->request->segments[0] ?? null) === PartsKit::getConfig('directory')) {
+        // Define viget base templates directory
+        if (PartsKit::isRequest()) {
             Event::on(
                 View::class,
                 View::EVENT_REGISTER_SITE_TEMPLATE_ROOTS,

@@ -98,6 +98,8 @@ Example:
 ```
 <!-- {% endraw %} -->
 
+***
+
 #### `getText($words)`
 
 This method returns random Lorem ipsum text
@@ -117,6 +119,8 @@ Example:
 <p>{{ craft.viget.partsKit.getText(40) }}</p>
 ```
 <!-- {% endraw %} -->
+
+***
 
 #### `getTitle($words)`
 
@@ -138,6 +142,8 @@ Example:
 ```
 <!-- {% endraw %} -->
 
+***
+
 #### `getSentence($words)`
 
 This method returns a random Lorem ipsum title sentence (including a period)
@@ -158,6 +164,8 @@ Example:
 ```
 <!-- {% endraw %} -->
 
+***
+
 #### `getParagraph()`
 
 This method returns a random Lorem ipsum paragraph made up of 5 sentences
@@ -173,6 +181,8 @@ Example:
 <p>{{ craft.viget.partsKit.getParagraph() }}</p>
 ```
 <!-- {% endraw %} -->
+
+***
 
 #### `getRichTextShort()`
 
@@ -195,6 +205,8 @@ Example:
 {{ craft.viget.partsKit.getRichTextShort() }}
 ```
 <!-- {% endraw %} -->
+
+***
 
 #### `getRichTextFull()`
 

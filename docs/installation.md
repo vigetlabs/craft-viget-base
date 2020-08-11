@@ -18,13 +18,18 @@ composer require viget/craft-viget-base
 
 Lock it at a specific version if desired.
 
-Open the main `Module` class that you want to use. In the class definition, extend from the base module
+Open the main `Module` class that you want to use. At the top of your `init` method, add the following:
 
 ```php
-class Module extends \viget\base\Module
-```
+// Initialize all the viget base code
+$this->setModules([
+    'viget-base' => [
+        'class' => '\viget\base\Module',
+    ],
+]);
 
-In your `init()` method, make sure that you have `parent::init();` as the first thing happening in the method.
+$this->getModule('viget-base');
+```
 
 ### Configure Phone Home
 

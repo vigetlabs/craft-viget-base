@@ -186,7 +186,7 @@ Example:
 
 #### `getRichTextShort()`
 
-This method returns 2 paragraphs of rich text Lorem ipsum content including the following inline HTML:
+This method returns 3 paragraphs of rich text Lorem ipsum content including the following inline HTML:
 
 - `strong`
 - `b`

@@ -122,6 +122,9 @@ class PartsKit
             $dir = $fileParts[0];
             $fileName = $fileParts[1];
 
+            // Don't include templates that are "hidden"
+            if ($fileName[0] === '_' || $fileName[0] === '.') continue;
+
             // Key already exists, add to array
             if (array_key_exists($dir, $templates)) {
                 $templates[$dir][] = self::_cleanFilename($fileName);

@@ -1,5 +1,9 @@
 # Release Notes for Viget Base Module
 
+## 1.2.1 - 2020-09-18
+
+- Don't include templates in parts kit nav that start with `_` or `.`
+
 ## 1.2.0 - 2020-08-04
 
 - Add Storybook style parts kit

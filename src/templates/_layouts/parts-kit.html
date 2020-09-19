@@ -19,7 +19,7 @@
                             <button
                                 class="parts-kit__button parts-kit__nav-button"
                                 aria-controls="{{ id }}"
-                                aria-expanded="false"
+                                aria-expanded="{{ section.isActive ? 'true' : 'false' }}"
                             >
                                 <div class="flex">
                                     {{ svg(

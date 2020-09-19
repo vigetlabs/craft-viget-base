@@ -1,5 +1,5 @@
 .parts-kit {
-    background: #ededed;
+    background: var(--pk-background);
     display: flex;
 }
 
@@ -31,9 +31,9 @@
 
 /* Sidebar */
 .parts-kit__sidebar {
-    background: #ededed;
+    background: var(--pk-background);
     box-sizing: border-box;
-    color: #202020;
+    color: var(--pk-text);
     flex-shrink: 0;
     font-family: BlinkMacSystemFont, sans-serif;
     min-height: 100vh;
@@ -76,14 +76,15 @@
 }
 
 .parts-kit__nav-button:hover {
-    background-color: #dbdbdb;
+    background-color: var(--pk-nav-item-background-hover);
+    color: var(--pk-nav-item-text-hover);
 }
 
 .parts-kit__nav-caret,
 .parts-kit__nav-component,
 .parts-kit__nav-story {
     display: block;
-    fill: #148bbe;
+    fill: var(--pk-nav-icon);
     margin-right: .25rem;
     width: .625rem;
 }
@@ -114,12 +115,13 @@
 }
 
 .parts-kit__nav-sub-items a:hover {
-    background-color: #dbdbdb;
+    background-color: var(--pk-nav-subitem-background-hover);
+    color: var(--pk-nav-subitem-text-hover);
 }
 
 .parts-kit__nav-sub-items a.active {
-    background: #148bbe;
-    color: #fff;
+    background: var(--pk-nav-subitem-background-active);
+    color: var(--pk-nav-subitem-text-active);
 }
 
 .parts-kit__nav-sub-items a.active .parts-kit__nav-story {
@@ -136,8 +138,8 @@
 }
 
 .parts-kit__main-header {
-    border-bottom: 1px solid #dbdbdb;
-    color: #a7a9ac;
+    border-bottom: 1px solid var(--pk-controls-border);
+    color: var(--pk-controls-text);
     display: flex;
     justify-content: flex-end;
     margin-bottom: .75rem;
@@ -155,7 +157,7 @@
 }
 
 .parts-kit__main-wrapper {
-    background: #fff;
+    background: var(--pk-main-background);
     border-radius: .25rem;
     box-shadow: 0 10px 18px rgba(0, 0, 0, 0.25);
     height: 100%;

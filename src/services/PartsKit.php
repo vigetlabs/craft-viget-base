@@ -29,15 +29,16 @@ class PartsKit
      * Get a config item either the default or from the config file
      *
      * @param string $key
-     * @return string|null
+     * @return string|array|null
      */
-    public static function getConfig(string $key): ?string
+    public static function getConfig(string $key)
     {
         $config = array_merge(
             [
                 'directory' => 'parts-kit',
                 'layout' => '_layouts/app',
                 'volume' => 'partsKit',
+                'theme' => 'light',
             ],
             Craft::$app->config->getConfigFromFile('parts-kit')
         );
@@ -92,6 +93,55 @@ class PartsKit
         }
 
         return $items;
+    }
+
+    public static function getTheme()
+    {
+        $themes = [
+            'light' => [
+                'background' => '#ededed',
+                'main-background' => '#fff',
+                'text' => '#202020',
+                'nav-icon' => '#148bbe',
+                'nav-item-text-hover' => '#202020',
+                'nav-item-background-hover' => '#dbdbdb',
+                'nav-subitem-text-hover' => '#202020',
+                'nav-subitem-background-hover' => '#dbdbdb',
+                'nav-subitem-background-active' => '#148bbe',
+                'nav-subitem-text-active' => '#fff',
+                'controls-text' => '#a7a9ac',
+                'controls-border' => '#dbdbdb',
+            ],
+
+            'dark' => [
+                'background' => '#2f2f2f',
+                'main-background' => '#333',
+                'text' => 'rgba(255, 255, 255, 0.8)',
+                'nav-icon' => '#1ea7fd',
+                'nav-item-text-hover' => '#fff',
+                'nav-item-background-hover' => 'rgba(250, 250, 252, 0.1)',
+                'nav-subitem-text-hover' => '#fff',
+                'nav-subitem-background-hover' => 'rgba(250, 250, 252, 0.1)',
+                'nav-subitem-background-active' => '#1ea7fd',
+                'nav-subitem-text-active' => '#fff',
+                'controls-text' => '#999',
+                'controls-border' => 'rgba(255, 255, 255, 0.1)',
+            ],
+        ];
+
+        $theme = self::getConfig('theme');
+
+        // If a theme name is passed instead of
+        // custom config, select that theme
+        if (!is_array($theme)) {
+            $theme = $themes[$theme] ?? $themes['light'];
+        }
+
+        $css = [];
+        foreach ($theme as $property => $value) {
+            $css[] = "--pk-{$property}: {$value};";
+        }
+        return $css;
     }
 
     /**

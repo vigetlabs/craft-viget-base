@@ -1,6 +1,12 @@
 {% extends craft.viget.partsKit.getConfig('layout') %}
 
 {% block content %}
+    <style>
+        .parts-kit {
+            {{ craft.viget.partsKit.getTheme() | join() }}
+        }
+    </style>
+
     <div class="parts-kit" data-parts-kit>
         <aside
             class="parts-kit__sidebar"

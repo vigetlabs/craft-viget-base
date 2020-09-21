@@ -95,7 +95,12 @@ class PartsKit
         return $items;
     }
 
-    public static function getTheme()
+    /**
+     * Get the CSS variables that power the theme
+     *
+     * @return string
+     */
+    public static function getTheme(): string
     {
         $themes = [
             'light' => [
@@ -141,7 +146,7 @@ class PartsKit
         foreach ($theme as $property => $value) {
             $css[] = "--pk-{$property}: {$value};";
         }
-        return $css;
+        return implode('', $css);
     }
 
     /**

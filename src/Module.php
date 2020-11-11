@@ -64,7 +64,7 @@ class Module extends \yii\base\Module
             self::$_currentUser &&
             !Craft::$app->request->getIsConsoleRequest()
         ) {
-            Craft::$app->user->identity->mergePreferences([
+            self::$_currentUser->mergePreferences([
                 'enableDebugToolbarForSite' => true,
                 'enableDebugToolbarForCp' => true,
             ]);

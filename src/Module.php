@@ -23,6 +23,7 @@ use viget\base\services\PartsKit;
 class Module extends \yii\base\Module
 {
     public static $instance;
+    private static $_currentUser;
 
     /**
      * Initializes the module.
@@ -34,6 +35,7 @@ class Module extends \yii\base\Module
 
         parent::init();
         self::$instance = $this;
+        self::$_currentUser = Craft::$app->user->identity ?? null;
 
         $this->_setComponents();
 
@@ -56,14 +58,16 @@ class Module extends \yii\base\Module
             }
         }
 
-        // Always turn on the debug bar in dev environment
+        // Always turn on the debug bar in dev environment (for logged in users)
         if (
             getenv('ENVIRONMENT') === 'dev' &&
-            !Craft::$app->request->getIsConsoleRequest() &&
-            !Craft::$app->request->getIsAjax()
+            self::$_currentUser &&
+            !Craft::$app->request->getIsConsoleRequest()
         ) {
-            Craft::$app->session->set('enableDebugToolbarForSite', true);
-            Craft::$app->session->set('enableDebugToolbarForCp', true);
+            Craft::$app->user->identity->mergePreferences([
+                'enableDebugToolbarForSite' => true,
+                'enableDebugToolbarForCp' => true,
+            ]);
         }
 
         Craft::info(
@@ -108,11 +112,9 @@ class Module extends \yii\base\Module
 
                 if (!$element) return;
 
-                $currentUser = Craft::$app->getUser()->identity ?? null;
-
                 if (
                     Craft::$app->config->general->devMode ||
-                    ($currentUser && $currentUser->can('accessCp'))
+                    (self::$_currentUser && self::$_currentUser->can('accessCp'))
                 ) {
                     echo '<a
                             href="' . $element->cpEditUrl . '"

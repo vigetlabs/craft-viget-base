@@ -1,5 +1,10 @@
 # Release Notes for Viget Base Module
 
+## 2.0.0 - 2020-11-12
+
+- Adjustments to account for a Craft 3.5 change to determine how the debug bar should appear
+- Increases Craft dependency to `^3.5.0`
+
 ## 1.3.0 - 2020-11-11
 
 - Adds parts kit theme-ability: light (default), dark, and custom

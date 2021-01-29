@@ -27,19 +27,68 @@ class PartsKit {
         this.fullscreenCloseBtn = this.el.querySelector(
             "[data-fullscreen-close]"
         );
+        /** @type {HTMLInputElement} */
+        this.sidebarSearch = this.el.querySelector("[data-sidebar-search]");
+        /** @type {NodeListOf<HTMLElement>} */
+        this.sectionItems = this.el.querySelectorAll("[data-section-item]");
+        this.searchList = [...this.sectionItems].map(el => {
+            return {
+                el,
+                searchText: el.getAttribute('data-search-text')?.toLowerCase(),
+                toggle: el.closest("[data-parts-kit-toggle]")
+            }
+        });
     }
 
     bindEvents() {
         document.addEventListener("keydown", this.handleKeydown);
         this.fullscreenExpandBtn.addEventListener("click", this.toggleSidebar);
         this.fullscreenCloseBtn.addEventListener("click", this.toggleSidebar);
+        this.sidebarSearch.addEventListener("input", this.handleSearchInput);
     }
 
     handleKeydown = ({ keyCode }) => {
         if (keyCode === keyCodes.f || keyCode === keyCodes.esc) {
+            // TODO don't toggle sidebar if search input is in focus.
             this.toggleSidebar();
         }
     };
+
+    handleSearchInput = (e) => {
+        this.doSearch(this.sidebarSearch.value);
+    }
+
+    clearSearch() {
+        this.sidebar.classList.remove("search-active");
+        this.searchList.forEach(item => {
+            item.el.classList.remove("in-search");
+            item.toggle.classList.remove("in-search");
+        });
+    }
+
+    /**
+     *
+     * @param {String} searchText
+     */
+    doSearch(searchText) {
+        const formattedText = searchText.trim().toLowerCase();
+
+        this.clearSearch()
+
+        if(!formattedText) {
+            return;
+        }
+
+        this.sidebar.classList.add("search-active");
+
+        const searchResults = this.searchList
+            .filter(x => x.searchText.indexOf(searchText) > -1);
+
+        searchResults.forEach(item => {
+            item.el.classList.add("in-search");
+            item.toggle.classList.add("in-search");
+        })
+    }
 
     initSidebar() {
         const isHidden = localStorage.getItem(this.lsSidebar) === "true";

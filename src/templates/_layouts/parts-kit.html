@@ -14,6 +14,8 @@
         >
             <h2 class="parts-kit__sr-only">Parts Navigation</h2>
 
+            <input type="search" data-sidebar-search>
+
             {% set navSections = craft.viget.partsKit.getNav() %}
 
             {% if navSections %}
@@ -46,7 +48,8 @@
                                 data-togglee
                             >
                                 {% for item in section.items %}
-                                    <li>
+                                    <li data-section-item
+                                        data-search-text="{{ title ~ ' ' ~ item.title }}">
                                         <a
                                             href="{{ url(item.url) }}"
                                             {% if item.isActive %}class="active"{% endif %}

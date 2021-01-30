@@ -23,7 +23,8 @@
                     {% for title, section in navSections %}
                         {% set id = "nav-section-#{loop.index}" %}
 
-                        <li data-parts-kit-toggle>
+                        <li data-parts-kit-toggle
+                            {% if section.isActive %}data-active-section{% endif %}>
                             <button
                                 class="parts-kit__button parts-kit__nav-button"
                                 aria-controls="{{ id }}"

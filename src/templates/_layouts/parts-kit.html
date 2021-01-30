@@ -14,7 +14,17 @@
         >
             <h2 class="parts-kit__sr-only">Parts Navigation</h2>
 
-            <input type="search" data-sidebar-search>
+            <label class="parts-kit__sr-only" for="pk-search">Search parts kit</label>
+            <div class="parts-kit__search">
+                <input class="parts-kit__search-input" id="pk-search" type="search"
+                    placeholder="Press / to search..."
+                    data-focus-placeholder="Type to search..."
+                    data-sidebar-search>
+                {{ svg(
+                    '@viget/base/resources/icons/search.svg',
+                    class='parts-kit__search-icon'
+                ) }}
+            </div>
 
             {% set navSections = craft.viget.partsKit.getNav() %}
 

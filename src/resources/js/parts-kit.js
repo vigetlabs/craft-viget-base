@@ -7,6 +7,7 @@ const keyCodes = {
     arrowRight: 39,
     arrowDown: 40,
     f: 70,
+    forwardSlash: 191
 };
 
 // Slide class for animating hiding/showing
@@ -175,15 +176,38 @@ class PartsKit {
         this.fullscreenExpandBtn.addEventListener("click", this.toggleSidebar);
         this.fullscreenCloseBtn.addEventListener("click", this.toggleSidebar);
         this.sidebarSearch.addEventListener("input", this.handleSearchInput);
+        this.sidebarSearch.addEventListener("focus", ({target}) => {
+            target.setAttribute('data-blur-placeholder', target.getAttribute('placeholder'))
+            target.setAttribute('placeholder', target.getAttribute('data-focus-placeholder'))
+        })
+        this.sidebarSearch.addEventListener("blur", ({target}) => {
+            target.setAttribute('placeholder', target.getAttribute('data-blur-placeholder'))
+        })
     }
 
-    focusInInput = () => document.activeElement.tagName === 'INPUT'
+    noUserInput = () => document.activeElement.tagName !== 'INPUT'
 
     handleKeydown = ({ keyCode }) => {
-        if ((keyCode === keyCodes.f || keyCode === keyCodes.esc) && !this.focusInInput()) {
+        if ((keyCode === keyCodes.f || keyCode === keyCodes.esc) && this.noUserInput()) {
             this.toggleSidebar();
         }
+
+        if(keyCode === keyCodes.forwardSlash && this.noUserInput()) {
+            this.focusOnSearch();
+        }
+
     };
+
+    focusOnSearch() {
+        if(this.sidebar.classList.contains("hidden")) {
+            this.toggleSidebar();
+        }
+
+        // Wait for sidebar to show. Prevents typing / in the search input
+        requestAnimationFrame(() => {
+            this.sidebarSearch.focus();
+        })
+    }
 
     handleSearchInput = (e) => {
         this.doSearch(this.sidebarSearch.value);

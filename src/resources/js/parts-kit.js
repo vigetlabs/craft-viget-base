@@ -1,15 +1,3 @@
-const keyCodes = {
-    tab: 9,
-    enter: 13,
-    esc: 27,
-    arrowLeft: 37,
-    arrowUp: 38,
-    arrowRight: 39,
-    arrowDown: 40,
-    f: 70,
-    forwardSlash: 191
-};
-
 // Slide class for animating hiding/showing
 class Slide {
     constructor(el, collapsedClass = "collapsed") {
@@ -126,8 +114,8 @@ class Toggle {
         typeof this.config[prop] === "function" && this.config[prop]();
     }
 
-    handleKeydown = ({ keyCode }) => {
-        if (this.isOpen && keyCode === keyCodes.esc) {
+    handleKeydown = ({ key }) => {
+        if (this.isOpen && key === "Escape") {
             this.close();
         }
     };
@@ -187,12 +175,12 @@ class PartsKit {
 
     noUserInput = () => document.activeElement.tagName !== 'INPUT'
 
-    handleKeydown = ({ keyCode }) => {
-        if ((keyCode === keyCodes.f || keyCode === keyCodes.esc) && this.noUserInput()) {
+    handleKeydown = ({ key }) => {
+        if ((key === "f" || key === "Escape") && this.noUserInput()) {
             this.toggleSidebar();
         }
 
-        if(keyCode === keyCodes.forwardSlash && this.noUserInput()) {
+        if(key === "/" && this.noUserInput()) {
             this.focusOnSearch();
         }
 
@@ -243,7 +231,7 @@ class PartsKit {
         this.sidebar.classList.add("search-active");
 
         const searchResults = this.searchList
-            .filter(x => x.searchText.indexOf(searchText) > -1);
+            .filter(x => x.searchText.includes(searchText));
 
         searchResults.forEach(item => {
             item.el.classList.add("in-search");

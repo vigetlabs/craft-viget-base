@@ -53,7 +53,7 @@ class Module extends \yii\base\Module
             $this->_bindCpEvents();
 
             // Phone home for Airtable inventory
-            if (!Craft::$app->request->getIsAjax()) {
+            if (!Craft::$app->request->getIsAjax() && Craft::$app->isInstalled) {
                 PhoneHome::makeCall();
             }
         }

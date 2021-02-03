@@ -16,10 +16,13 @@
 
             <label class="parts-kit__sr-only" for="pk-search">Search parts kit</label>
             <div class="parts-kit__search">
-                <input class="parts-kit__search-input" id="pk-search" type="search"
+                <input class="parts-kit__search-input"
+                    id="pk-search"
+                    type="search"
                     placeholder="Press / to search..."
                     data-focus-placeholder="Type to search..."
-                    data-sidebar-search>
+                    data-sidebar-search
+                >
                 {{ svg(
                     '@viget/base/resources/icons/search.svg',
                     class='parts-kit__search-icon'
@@ -34,7 +37,8 @@
                         {% set id = "nav-section-#{loop.index}" %}
 
                         <li data-parts-kit-toggle
-                            {% if section.isActive %}data-active-section{% endif %}>
+                            {% if section.isActive %}data-active-section{% endif %}
+                        >
                             <button
                                 class="parts-kit__button parts-kit__nav-button"
                                 aria-controls="{{ id }}"
@@ -60,7 +64,8 @@
                             >
                                 {% for item in section.items %}
                                     <li data-section-item
-                                        data-search-text="{{ title ~ ' ' ~ item.title }}">
+                                        data-search-text="{{ title ~ ' ' ~ item.title }}"
+                                    >
                                         <a
                                             href="{{ url(item.url) }}"
                                             {% if item.isActive %}class="active"{% endif %}

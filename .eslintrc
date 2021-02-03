@@ -5,10 +5,9 @@
       "es6": true
     },
     "parser": "babel-eslint",
-    "plugins": ["prettier", "jest"],
+    "plugins": ["prettier"],
     "extends": [
       "eslint:recommended",
-      "plugin:prettier/recommended",
-      "plugin:jest/recommended"
+      "plugin:prettier/recommended"
     ]
 }

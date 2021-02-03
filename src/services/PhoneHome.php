@@ -172,6 +172,9 @@ class PhoneHome
      */
     private static function _doesQueueJobExist(): bool
     {
+        // Potentially using the redis queue, so property doesn't exist
+        if (!Craft::$app->queue->hasProperty('jobInfo')) return false;
+
         return array_search('Phoning home', array_column(Craft::$app->queue->jobInfo, 'description')) !== false;
     }
 }

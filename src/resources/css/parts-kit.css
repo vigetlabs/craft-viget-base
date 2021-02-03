@@ -67,44 +67,46 @@
 }
 /* Search */
 .parts-kit__search {
-    padding: 0 18px;
     margin-bottom: 8px;
+    padding: 0 18px;
     position: relative;
 }
 
 .parts-kit__search-icon {
-    fill: none;
     border-color: var(--pk-text);
-    position: absolute;
-    top: -2px;
     bottom: 0;
+    fill: none;
+    height: 16px;
     left: 18px;
     margin: auto 0;
-    width: 16px;
-    height: 16px;
     opacity: .5;
+    position: absolute;
+    top: -2px;
+    width: 16px;
 }
 
 .parts-kit__search-input {
+    appearance: none;
     background: transparent;
-    width: 100%;
-    display: block;
-    padding: 4px;
-    padding-left: 20px;
-    font-size: .875rem;
-    color: var(--pk-text);
     border-bottom: 1px solid currentColor;
+    border: none;
+    color: var(--pk-text);
+    display: block;
+    font-size: .875rem;
     opacity: .5;
+    padding-left: 20px;
+    padding: 4px;
+    width: 100%;
 }
 
     .parts-kit__search-input:focus {
-        opacity: .8;
         border-color: var(--pk-nav-subitem-background-active);
+        opacity: .8;
     }
 
     .parts-kit__search-input:focus + .parts-kit__search-icon {
-        opacity: 1;
         color: var(--pk-nav-subitem-background-active);
+        opacity: 1;
     }
 
 .parts-kit__search-input::placeholder {

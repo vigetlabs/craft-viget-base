@@ -1,5 +1,10 @@
 # Release Notes for Viget Base Module
 
+## 2.0.1 - 2021-02-03
+
+- Don't try and phone home if Craft isn't installed yet
+- Check queue to see if existing phone home job exists before adding a new job
+
 ## 2.0.0 - 2020-11-12
 
 - Adjustments to account for a Craft 3.5 change to determine how the debug bar should appear

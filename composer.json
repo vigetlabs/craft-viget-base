@@ -2,7 +2,7 @@
     "name": "viget/craft-viget-base",
     "description": "Viget Base Module",
     "type": "yii2-module",
-    "version": "2.0.0",
+    "version": "2.0.1",
     "keywords": [
         "craft",
         "cms",

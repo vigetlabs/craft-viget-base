@@ -26,8 +26,8 @@ class PhoneHome
      */
     public static function makeCall()
     {
-        // We've checked recently enough, bail out
-        if (Craft::$app->cache->get(self::$_cacheKey) !== false) return;
+        // We've checked recently enough or a job in the queue already exists, bail out
+        if (Craft::$app->cache->get(self::$_cacheKey) !== false || self::_doesQueueJobExist()) return;
 
         Craft::$app->queue->push(new PhoneHomeJob());
     }
@@ -163,5 +163,15 @@ class PhoneHome
         }
 
         return implode(PHP_EOL, $modules);
+    }
+
+    /**
+     * Check if existing Phoning home job is already in the queue
+     *
+     * @return boolean
+     */
+    private static function _doesQueueJobExist(): bool
+    {
+        return array_search('Phoning home', array_column(Craft::$app->queue->jobInfo, 'description')) !== false;
     }
 }

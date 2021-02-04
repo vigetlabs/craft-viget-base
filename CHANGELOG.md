@@ -1,5 +1,10 @@
 # Release Notes for Viget Base Module
 
+## 2.1.0 - 2021-02-04
+
+- Fix when queue component doesn't implement the QueueInterface (like redis)
+- Add parts kit search
+
 ## 2.0.1 - 2021-02-03
 
 - Don't try and phone home if Craft isn't installed yet

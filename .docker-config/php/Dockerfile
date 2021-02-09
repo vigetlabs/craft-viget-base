@@ -26,6 +26,7 @@ RUN pecl install mcrypt-1.0.3 && \
 
 RUN curl -sS https://getcomposer.org/installer | php -- \
   --install-dir=/usr/local/bin/ --filename=composer
+RUN composer self-update --1
 RUN composer global require hirak/prestissimo
 
 COPY ./.docker-config/php/docker-php-settings.ini /usr/local/etc/php/conf.d/docker-php-settings.ini

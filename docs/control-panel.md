@@ -8,37 +8,47 @@ nav_order: 3
 
 ## Customized CP Navigation
 
-When in `devMode`, we are customizing the Craft CP navigation via a `/config/dev.php` (which should be gitignored). By default, we are adding links to **Sections** and **Fields** (controlled by `useDefaults`), and the three most **recent entries**. You can add links by adding to `navItems`.
+When in `devMode`, we are customizing the Craft CP navigation via the same config file used for all base module features: `/config/viget.php`. These settings should be nested under a `cpNav` key.
+
+By default, we are adding links to **Sections** and **Fields** (controlled by `useDefaults`), and the three most **recent entries**. You can add links by adding to `navItems`.
 
 Here's a full sample configuration:
 
 ```php
-// /config/dev.php
+// /config/viget.php
 <?php
 
 return [
-    'useDefaults' => true,
-    'navItems' => [
-        0 => [
-            'url' => '#TODO',
-            'label' => 'Custom Thing',
+    'cpNav' => [
+        'useDefaults' => true,
+        'navItems' => [
+            0 => [
+                'url' => '#TODO',
+                'label' => 'Custom Thing',
+            ],
         ],
+        'showRecentEntries' => 3,
+        'icon' => 'disabled',
     ],
-    'showRecentEntries' => 3,
-    'icon' => 'disabled',
+    // other base module settings
+    'partsKit' => [
+        //...
+    ],
 ];
 ```
 
 If you'd like to restore the stock Craft navigation, use:
 
 ```php
-// /config/dev.php
+// /config/viget.php
 
 <?php
 
 return [
-    'useDefaults' => false,
-    'showRecentEntries' => false,
+    'cpNav' => [
+        'useDefaults' => false,
+        'showRecentEntries' => false,
+    ],
 ];
 ```
 

@@ -33,6 +33,8 @@ class PartsKit
      */
     public static function getConfig(string $key)
     {
+        // Merge user settings with the defaults
+        $userSettings = Craft::$app->config->getConfigFromFile('viget')['partsKit'] ?? [];
         $config = array_merge(
             [
                 'directory' => 'parts-kit',
@@ -40,7 +42,7 @@ class PartsKit
                 'volume' => 'partsKit',
                 'theme' => 'light',
             ],
-            Craft::$app->config->getConfigFromFile('parts-kit')
+            $userSettings
         );
 
         return $config[$key] ?? null;

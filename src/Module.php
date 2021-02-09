@@ -16,6 +16,7 @@ use viget\base\services\CpNav;
 use viget\base\services\Util;
 use viget\base\services\PhoneHome;
 use viget\base\services\PartsKit;
+use viget\base\services\Tailwind;
 
 /**
  * Yii Module for setting up custom Twig functionality to keep templates streamlined
@@ -85,6 +86,7 @@ class Module extends \yii\base\Module
             'cpNav' => CpNav::class,
             'util' => Util::class,
             'partsKit' => PartsKit::class,
+            'tailwind' => Tailwind::class,
         ]);
     }
 

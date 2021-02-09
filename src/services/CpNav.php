@@ -19,7 +19,7 @@ class CpNav
     public function addItems(array $navItems = [])
     {
         // Merge user settings with the defaults
-        $userSettings = Craft::$app->config->getConfigFromFile('dev');
+        $userSettings = Craft::$app->config->getConfigFromFile('viget')['cpNav'] ?? [];
         $defaults = [
             'useDefaults' => true,
             'navItems' => [],

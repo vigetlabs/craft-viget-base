@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Control Panel
+title: Tailwind
 nav_order: 3
 ---
 
@@ -39,7 +39,7 @@ return [
 
 This method returns the entire config as an object.
 
-Returns: `Object|null`
+Returns: `Array|null`
 
 Example:
 <!-- {% raw %} -->

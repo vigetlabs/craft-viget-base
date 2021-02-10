@@ -1,5 +1,13 @@
 # Release Notes for Viget Base Module
 
+## 3.0.0 - 2021-02-10
+
+- Add Tailwind service for exposing config to PHP & Twig
+- Add new config file for all services
+- Drop support for `dev.php` and `parts-kit.php`
+- Add repo link to docs site
+- Fix parts kit search input padding
+
 ## 2.1.0 - 2021-02-04
 
 - Fix when queue component doesn't implement the QueueInterface (like redis)

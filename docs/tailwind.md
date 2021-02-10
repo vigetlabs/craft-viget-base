@@ -10,11 +10,11 @@ For projects with a Tailwind config, this module lets you access those tokens in
 
 ## Setup
 
-Your Tailwind config must be parsed and written to a JSON file, typically via Webpack (FedPack example link coming soon). The only configuration available is the path to that JSON file, relative to `./templates`. You can override that value via the same config file used for all base module features: `/config/viget.php`. These settings should be nested under a `tailwind` key.
+Your Tailwind config must be parsed and written to a JSON file, typically via Webpack (FedPack example link coming soon). The only configuration available is the path to that JSON file, relative to `CRAFT_BASE_PATH`. You can override that value via the same config file used for all base module features: `/config/viget.php`. These settings should be nested under a `tailwind` key.
 
 | Key         | Default                             | Description                     |
 |:------------|:------------------------------------|:--------------------------------|
-| `configPath` | `../config/tailwind/tailwind.json` | Path to your Tailwind JSON file |
+| `configPath` | `/config/tailwind/tailwind.json` | Path to your Tailwind JSON file |
 
 Here's a full sample configuration:
 

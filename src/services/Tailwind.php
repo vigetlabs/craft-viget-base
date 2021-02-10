@@ -3,11 +3,12 @@
 namespace viget\base\services;
 
 use Craft;
+use yii\base\Component;
 
 /**
  * Functionality for accessing Tailwind tokens
  */
-class Tailwind
+class Tailwind extends Component
 {
     public $tailwindConfig = null;
 
@@ -23,7 +24,7 @@ class Tailwind
         $userSettings = Craft::$app->config->getConfigFromFile('viget')['tailwind'] ?? [];
         $config = array_merge(
             [
-                'configPath' => '../config/tailwind/tailwind.json'
+                'configPath' => CRAFT_BASE_PATH . '/config/tailwind/tailwind.json'
             ],
             $userSettings
         );

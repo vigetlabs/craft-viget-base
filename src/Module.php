@@ -9,6 +9,7 @@ use craft\events\RegisterTemplateRootsEvent;
 use craft\web\twig\variables\Cp;
 use craft\web\View;
 use craft\web\twig\variables\CraftVariable;
+use craft\helpers\ArrayHelper;
 
 use viget\base\Bundle;
 use viget\base\twigextensions\Extension;
@@ -24,6 +25,7 @@ use viget\base\services\Tailwind;
 class Module extends \yii\base\Module
 {
     public static $instance;
+    public static $config;
     private static $_currentUser;
 
     /**
@@ -38,6 +40,7 @@ class Module extends \yii\base\Module
         self::$instance = $this;
         self::$_currentUser = Craft::$app->user->identity ?? null;
 
+        $this->_loadConfig();
         $this->_setComponents();
 
         if (Craft::$app->request->getIsSiteRequest()) {
@@ -99,7 +102,7 @@ class Module extends \yii\base\Module
         Event::on(
             CraftVariable::class,
             CraftVariable::EVENT_INIT,
-            function(Event $e) {
+            function (Event $e) {
                 $variable = $e->sender;
                 $variable->set('viget', self::$instance);
             }
@@ -109,7 +112,7 @@ class Module extends \yii\base\Module
         Event::on(
             View::class,
             View::EVENT_END_BODY,
-            function(Event $e) {
+            function (Event $e) {
                 $element = Craft::$app->getUrlManager()->getMatchedElement();
 
                 if (!$element) return;
@@ -161,5 +164,29 @@ class Module extends \yii\base\Module
                 $event->navItems = $this->cpNav->addItems($event->navItems);
             }
         );
+    }
+
+    private function _loadConfig()
+    {
+        $defaults = [
+            'cpNav' => [
+                'useDefaults' => true,
+                'navItems' => [],
+                'showRecentEntries' => 3,
+                'icon' => 'disabled',
+            ],
+            'partsKit' => [
+                'directory' => 'parts-kit',
+                'layout' => '_layouts/app',
+                'volume' => 'partsKit',
+                'theme' => 'light',
+            ],
+            'tailwind' => [
+                'configPath' => CRAFT_BASE_PATH . '/config/tailwind/tailwind.json',
+            ],
+        ];
+
+        $userSettings = Craft::$app->config->getConfigFromFile('viget');
+        self::$config = ArrayHelper::merge($defaults, $userSettings);
     }
 }

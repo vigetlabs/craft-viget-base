@@ -22,7 +22,7 @@ return [
     'cpNav' => [
         'useDefaults' => true,
         'navItems' => [
-            0 => [
+            [
                 'url' => '#TODO',
                 'label' => 'Custom Thing',
             ],

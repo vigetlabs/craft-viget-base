@@ -3,7 +3,10 @@
 namespace viget\base\services;
 
 use Craft;
+use craft\helpers\Json;
 use yii\base\Component;
+
+use viget\base\Module;
 
 /**
  * Functionality for accessing Tailwind tokens
@@ -12,43 +15,18 @@ class Tailwind extends Component
 {
     public $tailwindConfig = null;
 
-    /**
-     * Get a config item either the default or from the config file
-     *
-     * @param string $key
-     * @return string|array|null
-     */
-    public static function getConfig(string $key)
+    public function init()
     {
-        // Merge user settings with the defaults
-        $userSettings = Craft::$app->config->getConfigFromFile('viget')['tailwind'] ?? [];
-        $config = array_merge(
-            [
-                'configPath' => CRAFT_BASE_PATH . '/config/tailwind/tailwind.json'
-            ],
-            $userSettings
-        );
-
-        return $config[$key] ?? null;
+        parent::init();
+        $this->_loadFullConfig();
     }
 
     /**
      * Get Tailwind config object
      */
-    public function getTwConfig(): ?object
+    public function getFullConfig(): ?array
     {
-        if ($this->tailwindConfig) return $this->tailwindConfig;
-
-        $tailwindPath = self::getConfig('configPath');
-
-        try {
-            $config = file_get_contents($tailwindPath);
-            $this->tailwindConfig = json_decode($config);
-        } catch (\Exception $e) {
-            throw $e;
-        } finally {
-            return $this->tailwindConfig;
-        }
+        return $this->tailwindConfig;
     }
 
     /**
@@ -56,14 +34,13 @@ class Tailwind extends Component
      */
     public function getColors(): array
     {
-        $config = $this->getTwConfig();
-        if (!$config) return [];
+        if (!$this->tailwindConfig) return [];
 
-        $colors = $config->theme->colors;
+        $colors = $this->tailwindConfig['theme']['colors'];
         $names = [];
 
         foreach ($colors as $name => $value) {
-            if (is_object($value)) {
+            if (is_array($value)) {
                 foreach ($value as $shade => $hex) {
                     if ($shade === 'default') {
                         $names[$name] = $hex;
@@ -76,5 +53,20 @@ class Tailwind extends Component
             }
         }
         return $names;
+    }
+
+    /**
+     * Load Tailwind config object from JSON
+     */
+    private function _loadFullConfig()
+    {
+        $tailwindPath = Module::$config['tailwind']['configPath'];
+
+        try {
+            $config = file_get_contents($tailwindPath);
+            $this->tailwindConfig = Json::decodeIfJson($config);
+        } catch (\Exception $e) {
+            throw $e;
+        }
     }
 }

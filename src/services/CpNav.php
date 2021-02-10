@@ -5,6 +5,8 @@ namespace viget\base\services;
 use Craft;
 use craft\elements\Entry;
 
+use viget\base\Module;
+
 /**
  * Modifies the CP nav
  */
@@ -18,15 +20,7 @@ class CpNav
      */
     public function addItems(array $navItems = [])
     {
-        // Merge user settings with the defaults
-        $userSettings = Craft::$app->config->getConfigFromFile('viget')['cpNav'] ?? [];
-        $defaults = [
-            'useDefaults' => true,
-            'navItems' => [],
-            'showRecentEntries' => 3,
-            'icon' => 'disabled',
-        ];
-        $settings = array_merge($defaults, $userSettings);
+        $settings = Module::$config['cpNav'];
 
         // Add the "default" nav items
         if ($settings['useDefaults']) {

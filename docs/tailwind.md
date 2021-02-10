@@ -12,9 +12,9 @@ For projects with a Tailwind config, this module lets you access those tokens in
 
 Your Tailwind config must be parsed and written to a JSON file, typically via Webpack (FedPack example link coming soon). The only configuration available is the path to that JSON file, relative to `CRAFT_BASE_PATH`. You can override that value via the same config file used for all base module features: `/config/viget.php`. These settings should be nested under a `tailwind` key.
 
-| Key         | Default                             | Description                     |
-|:------------|:------------------------------------|:--------------------------------|
-| `configPath` | `/config/tailwind/tailwind.json` | Path to your Tailwind JSON file |
+| Key          | Default                             | Description                     |
+|:-------------|:------------------------------------|:--------------------------------|
+| `configPath` | `/config/tailwind/tailwind.json`    | Path to your Tailwind JSON file |
 
 Here's a full sample configuration:
 
@@ -35,7 +35,7 @@ return [
 
 ## Components exposed to Twig `craft.viget.tailwind` sub-object
 
-### `getTwConfig()`
+### `getFullConfig()`
 
 This method returns the entire config as an object.
 
@@ -44,7 +44,7 @@ Returns: `Object|null`
 Example:
 <!-- {% raw %} -->
 ```twig
-{% set config = craft.viget.tailwind.getTwConfig() %}
+{% set config = craft.viget.tailwind.getFullConfig() %}
 {% set font = tw.theme.fontFamily.sans[0] ?? null %}
 ```
 <!-- {% endraw %} -->

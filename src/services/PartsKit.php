@@ -10,6 +10,8 @@ use craft\helpers\Template as TemplateHelper;
 use craft\elements\Asset;
 use Twig\Markup;
 
+use viget\base\Module;
+
 /**
  * Functionality for easily dropping in "Storybook" style parts kit
  */
@@ -33,19 +35,7 @@ class PartsKit
      */
     public static function getConfig(string $key)
     {
-        // Merge user settings with the defaults
-        $userSettings = Craft::$app->config->getConfigFromFile('viget')['partsKit'] ?? [];
-        $config = array_merge(
-            [
-                'directory' => 'parts-kit',
-                'layout' => '_layouts/app',
-                'volume' => 'partsKit',
-                'theme' => 'light',
-            ],
-            $userSettings
-        );
-
-        return $config[$key] ?? null;
+        return Module::$config['partsKit'][$key] ?? null;
     }
 
     /**

@@ -23,6 +23,8 @@ class Tailwind extends Component
 
     /**
      * Get Tailwind config object
+     *
+     * @return array|null
      */
     public function getFullConfig(): ?array
     {
@@ -31,12 +33,16 @@ class Tailwind extends Component
 
     /**
      * Get classname-ready list of colors
+     *
+     * @return array
      */
     public function getColors(): array
     {
         if (!$this->tailwindConfig) return [];
 
-        $colors = $this->tailwindConfig['theme']['colors'];
+        $colors = $this->tailwindConfig['theme']['colors'] ?? null;
+        if (!$colors) return [];
+
         $names = [];
 
         foreach ($colors as $name => $value) {

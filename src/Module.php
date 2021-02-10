@@ -182,7 +182,7 @@ class Module extends \yii\base\Module
                 'theme' => 'light',
             ],
             'tailwind' => [
-                'configPath' => CRAFT_BASE_PATH . '/config/tailwind/tailwind.json',
+                'configPath' => Craft::getAlias('@config/tailwind/tailwind.json'),
             ],
         ];
 

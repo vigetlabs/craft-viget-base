@@ -23,10 +23,9 @@
                     data-focus-placeholder="Type to search..."
                     data-sidebar-search
                 >
-                {{ svg(
-                    '@viget/base/resources/icons/search.svg',
-                    class='parts-kit__search-icon'
-                ) }}
+                {{ svg('@viget/base/resources/icons/search.svg') | attr({
+                    class: 'parts-kit__search-icon',
+                }) }}
             </div>
 
             {% set navSections = craft.viget.partsKit.getNav() %}
@@ -45,14 +44,12 @@
                                 aria-expanded="{{ section.isActive ? 'true' : 'false' }}"
                             >
                                 <div class="flex">
-                                    {{ svg(
-                                        '@viget/base/resources/icons/caret.svg',
-                                        class='parts-kit__nav-caret'
-                                    ) }}
-                                    {{ svg(
-                                        '@viget/base/resources/icons/pk-component.svg',
-                                        class='parts-kit__nav-component'
-                                    ) }}
+                                    {{ svg('@viget/base/resources/icons/caret.svg') | attr({
+                                        class: 'parts-kit__nav-caret',
+                                    }) }}
+                                    {{ svg('@viget/base/resources/icons/pk-component.svg') | attr({
+                                        class: 'parts-kit__nav-component',
+                                    }) }}
                                     <h3>{{ title | title }}</h3>
                                 </div>
                             </button>
@@ -71,10 +68,9 @@
                                             {% if item.isActive %}class="active"{% endif %}
                                         >
                                             <div class="flex">
-                                                {{ svg(
-                                                    '@viget/base/resources/icons/pk-sidebar.svg',
-                                                    class='parts-kit__nav-story'
-                                                ) }}
+                                                {{ svg('@viget/base/resources/icons/pk-sidebar.svg') | attr({
+                                                    class: 'parts-kit__nav-story',
+                                                }) }}
                                                 {{ item.title }}
                                             </div>
                                         </a>

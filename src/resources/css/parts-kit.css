@@ -45,6 +45,10 @@
     display: none;
 }
 
+.parts-kit__sidebar.hidden + .parts-kit__main {
+    margin-right: 0;
+}
+
 .parts-kit__sidebar * {
     font: inherit;
     font-size: 100%;

@@ -175,11 +175,15 @@ Example:
 
 ***
 
-#### `getParagraph()`
+#### `getParagraph($sentences)`
 
-This method returns a random Lorem ipsum paragraph made up of 5 sentences
+This method returns a random Lorem ipsum paragraph made up of any number of sentences
 
-Parameters: none
+Parameters:
+
+| Name        | Type  | Default |
+|:------------|:------|:--------|
+| `sentences` | `int` | `5`     |
 
 Returns: `string`
 
@@ -187,7 +191,7 @@ Example:
 
 <!-- {% raw %} -->
 ```twig
-<p>{{ craft.viget.partsKit.getParagraph() }}</p>
+<p>{{ craft.viget.partsKit.getParagraph(2) }}</p>
 ```
 <!-- {% endraw %} -->
 

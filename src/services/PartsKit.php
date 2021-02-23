@@ -277,17 +277,17 @@ class PartsKit
     /**
      * Get random Lorem ipsum paragraph
      *
+     * @param integer $sentences
      * @return string
      */
-    public static function getParagraph(): string
+    public static function getParagraph(int $sentences = 5): string
     {
-        return implode(' ', [
-            self::getSentence(8),
-            self::getSentence(11),
-            self::getSentence(10),
-            self::getSentence(12),
-            self::getSentence(7),
-        ]);
+        $selection = [];
+
+        while (count($selection) < $sentences) {
+            $selection[] = self::getSentence(rand(8, 12));
+        }
+        return implode(' ', $selection);
     }
 
     /**

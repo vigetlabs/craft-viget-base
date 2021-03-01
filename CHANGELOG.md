@@ -1,5 +1,12 @@
 # Release Notes for Viget Base Module
 
+## 3.0.1 - 2021-03-01
+
+- Add custom sentence length support to `getParagraph()`
+- Fix parts kit container margin when expanded
+- Fix Tailwind docs filename
+- Fix `svg()` deprecation error
+
 ## 3.0.0 - 2021-02-10
 
 - Add Tailwind service for exposing config to PHP & Twig

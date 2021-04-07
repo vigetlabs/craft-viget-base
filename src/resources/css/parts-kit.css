@@ -67,6 +67,7 @@
 }
 
 .parts-kit__sidebar .flex {
+    align-items: flex-start;
     display: flex;
 }
 /* Search */
@@ -123,6 +124,7 @@
 
 .parts-kit__nav-button {
     padding: .25rem;
+    text-align: left;
     width: 100%;
 }
 
@@ -136,7 +138,9 @@
 .parts-kit__nav-story {
     display: block;
     fill: var(--pk-nav-icon);
+    flex-shrink: 0;
     margin-right: .25rem;
+    margin-top: .375rem;
     width: .625rem;
 }
 

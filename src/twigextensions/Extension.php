@@ -6,6 +6,7 @@ use Craft;
 use Twig\TwigFunction;
 use Twig\Extension\AbstractExtension;
 use viget\base\services\PartialLoader;
+use viget\base\services\Tracking;
 
 /**
  * Custom Twig Extensions
@@ -22,9 +23,28 @@ class Extension extends AbstractExtension
         return [
             new TwigFunction(
                 'partial',
-                [PartialLoader::class, 'load'],
-                ['is_safe' => ['html']]
+                [
+                    PartialLoader::class,
+                    'load',
+                ],
+                [
+                    'is_safe' => [
+                        'html',
+                    ],
+                ]
             ),
+            new TwigFunction(
+                'gtm',
+                [
+                    Tracking::class,
+                    'getGtmAttribute',
+                ],
+                [
+                    'is_safe' => [
+                        'html',
+                    ]
+                ]
+            )
         ];
     }
 }

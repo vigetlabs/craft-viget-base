@@ -62,7 +62,7 @@ class Module extends \yii\base\Module
             }
         }
 
-        // Always turn on the debug bar in dev environment (for logged in users)
+        // Always turn on the debug bar and field handles in dev environment (for logged in users)
         if (
             getenv('ENVIRONMENT') === 'dev' &&
             self::$_currentUser &&
@@ -71,6 +71,7 @@ class Module extends \yii\base\Module
             self::$_currentUser->mergePreferences([
                 'enableDebugToolbarForSite' => true,
                 'enableDebugToolbarForCp' => true,
+                'showFieldHandles' => true,
             ]);
         }
 

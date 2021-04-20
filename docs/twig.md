@@ -8,9 +8,9 @@ nav_order: 2
 
 The base modules adds custom functionality to Twig
 
-## Custom partial() Twig method
+## partial() function
 
-The custom `partial()` Twig method as a shorthand for:
+The custom `partial()` Twig function as a shorthand for:
 
 <!-- {% raw %} -->
 ```twig
@@ -27,6 +27,20 @@ With this module enabled, to prevent leaky templates you should do:
 {{ partial('path/to/file', {
     key: 'value',
 }) }}
+```
+<!-- {% endraw %} -->
+
+## gtm() function
+
+This function is useful for generating `data-track-gtm` attributes and automatically getting the imploding and character escaping. You can pass string parameters or an array of strings
+
+<!-- {% raw %} -->
+```twig
+<div data-track-gtm="{{ gtm('One', 'Two', 'Three') }}">
+</div>
+
+<div data-track-gtm="{{ gtm(['One', 'Two', 'Three']) }}">
+</div>
 ```
 <!-- {% endraw %} -->
 

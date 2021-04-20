@@ -44,6 +44,16 @@ This function is useful for generating `data-track-gtm` attributes and automatic
 ```
 <!-- {% endraw %} -->
 
+Would result in:
+
+```html
+<div data-track-gtm="One|Two|Three">
+</div>
+
+<div data-track-gtm="One|Two|Three">
+</div>
+```
+
 ## Components exposed to Twig `craft.viget` sub-object
 
 ### `craft.viget.util.*`

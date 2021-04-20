@@ -1,5 +1,11 @@
 # Release Notes for Viget Base Module
 
+## 3.1.0 - 2021-04-20
+
+- Fix parts kit sidebar styling for parts with long names
+- Show field handles in dev environment
+- Add custom `gtm()` Twig function
+
 ## 3.0.1 - 2021-03-01
 
 - Add custom sentence length support to `getParagraph()`

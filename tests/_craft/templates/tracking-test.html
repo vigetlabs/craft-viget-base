@@ -1,0 +1,21 @@
+<div data-track-gtm="{{ gtm('Basic String', 'tracking', 'attributes') }}"></div>
+<div data-track-gtm="{{ gtm('"Basic String"', 'with', 'quote') }}"></div>
+<div data-track-gtm="{{ gtm(['"Basic Array"', 'with', 'quote']) }}"></div>
+
+<div
+    {{ attr({
+        'data-track-gtm': gtm('Attr String', 'tracking', 'attributes'),
+    }) }}
+></div>
+
+<div
+    {{ attr({
+        'data-track-gtm': gtm('"Attr String"', 'with', 'quote'),
+    }) }}
+></div>
+
+<div
+    {{ attr({
+        'data-track-gtm': gtm(['"Attr Array"', 'with', 'quote']),
+    }) }}
+></div>

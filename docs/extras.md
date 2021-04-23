@@ -10,7 +10,7 @@ nav_order: 5
 
 Regardless of logged-in state or permissions, the Craft Debug Bar will always be visible.
 
-## Always show field handles in dev enviorment
+## Always show field handles in dev environment
 
 Custom field handles on CP edit forms will be visible in the dev enviroment.
 

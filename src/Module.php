@@ -37,7 +37,12 @@ class Module extends \yii\base\Module
     public function init()
     {
         Craft::setAlias('@viget/base', __DIR__);
-        $this->controllerNamespace = 'viget\base\controllers';
+
+        if (Craft::$app->getRequest()->getIsConsoleRequest()) {
+            $this->controllerNamespace = 'viget\base\console\controllers';
+        } else {
+            $this->controllerNamespace = 'viget\base\controllers';
+        }
 
         parent::init();
         self::$instance = $this;
@@ -205,6 +210,9 @@ class Module extends \yii\base\Module
                 'layout' => '_layouts/app',
                 'volume' => 'partsKit',
                 'theme' => 'light',
+            ],
+            'scaffold' => [
+                'templatePrefix' => null, // used for test suite
             ],
             'tailwind' => [
                 'configPath' => Craft::getAlias('@config/tailwind/tailwind.json'),

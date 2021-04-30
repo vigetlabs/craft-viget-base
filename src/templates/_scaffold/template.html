@@ -1,0 +1,18 @@
+{% do craft.app.elements.eagerLoadElements(
+    className(entry),
+    [entry],
+    [
+        'assetField',
+        'matrixField',
+    ]
+) %}
+
+{% from '_macros' import macro %}
+
+{% extends '%%layout%%' %}
+
+{% set title = entry.title %}
+
+{% block content %}
+    <h1>{{ title }}</h1>
+{% endblock %}

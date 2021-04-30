@@ -1,6 +1,9 @@
 <?php
 
 return [
+    'scaffold' => [
+        'templatePrefix' => '/temp',
+    ],
     'partsKit' => [
         'directory' => 'parts-kit',
         'layout' => '_layouts/app',

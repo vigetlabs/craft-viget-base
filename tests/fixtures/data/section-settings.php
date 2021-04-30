@@ -8,5 +8,6 @@ return [
         'uriFormat' => null,
         'template' => null,
         'enabledByDefault' => true,
+        'template' => '_elements/test-section-1/index',
     ],
 ];

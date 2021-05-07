@@ -5,8 +5,8 @@ namespace viget\base\console\controllers;
 use Craft;
 use craft\console\Controller;
 use craft\helpers\FileHelper;
-use craft\services\Sections;
 
+use viget\base\helpers\GenerateHelper;
 use viget\base\Module;
 use yii\console\ExitCode;
 use yii\helpers\Console;
@@ -59,17 +59,17 @@ class GenerateController extends Controller
             return ExitCode::UNSPECIFIED_ERROR;
         }
 
-        $templateParts = self::_splitAndSanitizeInput($settings->template);
+        $templateParts = GenerateHelper::parseInput($settings->template);
         $path = $templateParts['path'];
 
-        $templateContent = self::_compileTemplate(
+        $templateContent = GenerateHelper::compileTemplate(
             $this->_loadScaffoldTemplate('template.html'),
             [
                 'layout' => self::getConfig('layout'),
             ]
         );
 
-        $structureIndex =  self::_compileTemplate(
+        $structureIndex = GenerateHelper::compileTemplate(
             $this->_loadScaffoldTemplate('structure.html'),
             [
                 'path' => $templateParts['path'],
@@ -88,11 +88,11 @@ class GenerateController extends Controller
 
     public function actionTemplate($templatePath)
     {
-        $parts = self::_splitAndSanitizeInput($templatePath);
+        $parts = GenerateHelper::parseInput($templatePath);
         $path = $parts['path'];
         $filename = $parts['filename'];
 
-        $templateContent = self::_compileTemplate(
+        $templateContent = GenerateHelper::compileTemplate(
             $this->_loadScaffoldTemplate('template.html'),
             [
                 'layout' => self::getConfig('layout'),
@@ -108,7 +108,7 @@ class GenerateController extends Controller
 
     public function actionPartial($partialPath, ?string $variantsInput = null)
     {
-        $parts = self::_splitAndSanitizeInput($partialPath);
+        $parts = GenerateHelper::parseInput($partialPath);
         $path = $parts["path"];
         $filename = $parts['filename'];
 
@@ -123,7 +123,7 @@ class GenerateController extends Controller
         $partialContent = $this->_loadScaffoldTemplate('partial.html');
         $partsKitContent = $this->_loadScaffoldTemplate('partial-parts-kit.html');
 
-        $partsKitContentCompiled = self::_compileTemplate($partsKitContent, [
+        $partsKitContentCompiled = GenerateHelper::compileTemplate($partsKitContent, [
             'partialPath' => $partialPath,
         ]);
 
@@ -153,41 +153,5 @@ class GenerateController extends Controller
         }
 
         FileHelper::writeToFile($fullPath, $content);
-    }
-
-    // TODO - unit test
-    private static function _removeFileExtension(string $filename): string
-    {
-        $explode = explode('.', $filename);
-        if(count($explode) === 1) {
-            return $filename;
-        }
-
-        return implode('.', array_slice($explode, 0, -1));
-    }
-
-    // TODO - unit test
-    private static function _splitAndSanitizeInput(string $input): array
-    {
-        $split = explode(DIRECTORY_SEPARATOR, $input);
-        $path = implode(DIRECTORY_SEPARATOR, array_slice($split, 0, -1));
-        $filename = self::_removeFileExtension(end($split));
-
-        return [
-            'path' => FileHelper::normalizePath($path),
-            'filename' => FileHelper::sanitizeFilename($filename),
-        ];
-    }
-
-    // TODO - unit test
-    private static function _compileTemplate(string $template, array $vars): string
-    {
-        $patterns = array_map(function ($item) {
-            return "/%%$item%%/";
-        }, array_values(array_flip($vars)));
-
-        $replacements = array_values($vars);
-
-        return preg_replace($patterns, $replacements, $template);
     }
 }

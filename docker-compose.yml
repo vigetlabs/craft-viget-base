@@ -16,7 +16,7 @@ services:
       - 9000
     volumes:
       - .:/var/www/html
-      - composer:/var/www/html/vendor
+      - ./vendor:/var/www/html/vendor:delegated
       - runtime:/var/www/html/storage/runtime
       - logs:/var/www/html/storage/logs
     environment:

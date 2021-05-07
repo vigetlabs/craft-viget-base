@@ -14,7 +14,9 @@ use yii\helpers\Console;
 class GenerateController extends Controller
 {
 
-    // TODO - pass variants to make multiple files `default, dark, two-up`
+    // TODO - Make a "create section" action that takes a section handle and entry types list and
+    //        adds to your Craft config.
+    // TODO - Use options to pass partial variants instead of using parameter position
     // TODO - make multiple partials at once
 
     private $templatesDir;
@@ -31,7 +33,6 @@ class GenerateController extends Controller
         $this->defaultFileExtension = '.html';
         parent::init();
     }
-
 
     /**
      * Get a config item either the default or from the config file

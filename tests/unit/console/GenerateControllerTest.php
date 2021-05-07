@@ -58,6 +58,13 @@ class GenerateControllerTest extends ConsoleTest
 
         $this->assertFileExists($this->partialsRoot . '/foo.html');
         $this->assertFileExists($this->partsKitRoot . '/foo/default.html');
+
+        $partsKitContent = file_get_contents($this->partsKitRoot . '/foo/default.html');
+
+        $this->assertStringContainsString(
+            '_partials/foo',
+            $partsKitContent
+        );
     }
 
     /**
@@ -72,6 +79,13 @@ class GenerateControllerTest extends ConsoleTest
             ->run();
 
         $this->assertFileExists($this->templatesRoot . '/foo.html');
+
+        $fileContent = file_get_contents($this->templatesRoot . '/foo.html');
+
+        $this->assertStringContainsString(
+            Module::$config['partsKit']['layout'],
+            $fileContent
+        );
     }
 
     /**
@@ -88,6 +102,19 @@ class GenerateControllerTest extends ConsoleTest
         $this->assertFileExists($this->templatesRoot . '/test-section-1/index.html');
         $this->assertFileExists($this->templatesRoot . '/test-section-1/testEntryType1.html');
         $this->assertFileExists($this->templatesRoot . '/test-section-1/testEntryType2.html');
+
+        $indexContent = file_get_contents($this->templatesRoot . '/test-section-1/index.html');
+        $entryTypeContent = file_get_contents($this->templatesRoot . '/test-section-1/testEntryType1.html');
+
+        $this->assertStringContainsString(
+            '_elements/test-section-1/#{entry.type.handle}',
+            $indexContent
+        );
+
+        $this->assertStringContainsString(
+            Module::$config['partsKit']['layout'],
+            $entryTypeContent
+        );
     }
 
 }

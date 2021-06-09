@@ -10,6 +10,7 @@ use craft\web\twig\variables\Cp;
 use craft\web\View;
 use craft\web\twig\variables\CraftVariable;
 use craft\helpers\ArrayHelper;
+use craft\services\Plugins;
 
 use viget\base\Bundle;
 use viget\base\twigextensions\Extension;
@@ -27,7 +28,6 @@ class Module extends \yii\base\Module
 {
     public static $instance;
     public static $config;
-    private static $_currentUser;
 
     /**
      * Initializes the module.
@@ -39,7 +39,6 @@ class Module extends \yii\base\Module
 
         parent::init();
         self::$instance = $this;
-        self::$_currentUser = Craft::$app->user->identity ?? null;
 
         $this->_loadConfig();
         $this->_setComponents();
@@ -64,17 +63,23 @@ class Module extends \yii\base\Module
         }
 
         // Always turn on the debug bar and field handles in dev environment (for logged in users)
-        if (
-            getenv('ENVIRONMENT') === 'dev' &&
-            self::$_currentUser &&
-            !Craft::$app->request->getIsConsoleRequest()
-        ) {
-            self::$_currentUser->mergePreferences([
-                'enableDebugToolbarForSite' => true,
-                'enableDebugToolbarForCp' => true,
-                'showFieldHandles' => true,
-            ]);
-        }
+        Event::on(
+            Plugins::class,
+            Plugins::EVENT_AFTER_LOAD_PLUGINS,
+            function (Event $event) {
+                if (
+                    Craft::$app->env === 'dev' &&
+                    Craft::$app->user->checkPermission('accessCp') &&
+                    !Craft::$app->request->getIsConsoleRequest()
+                ) {
+                    Craft::$app->user->identity->mergePreferences([
+                        'enableDebugToolbarForSite' => true,
+                        'enableDebugToolbarForCp' => true,
+                        'showFieldHandles' => true,
+                    ]);
+                }
+            }
+        );
 
         Craft::info(
             'viget base loaded',
@@ -122,7 +127,7 @@ class Module extends \yii\base\Module
 
                 if (
                     Craft::$app->config->general->devMode ||
-                    (self::$_currentUser && self::$_currentUser->can('accessCp'))
+                    Craft::$app->user->checkPermission('accessCp')
                 ) {
                     echo '<a
                             href="' . $element->cpEditUrl . '"
@@ -169,6 +174,11 @@ class Module extends \yii\base\Module
         );
     }
 
+    /**
+     * Load module config
+     *
+     * @return void
+     */
     private function _loadConfig()
     {
         $defaults = [

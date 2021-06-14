@@ -1,5 +1,9 @@
 # Release Notes for Viget Base Module
 
+## 3.1.1 - 2021-06-14
+
+- Fix issue with accessing user early conflicting with some plugins (#34)
+
 ## 3.1.0 - 2021-04-20
 
 - Fix parts kit sidebar styling for parts with long names

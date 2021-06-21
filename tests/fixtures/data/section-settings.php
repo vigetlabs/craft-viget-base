@@ -3,7 +3,7 @@ return [
     [
         'id' => '1000',
         'sectionId' => '1000',
-        'siteId' => '1',
+        'siteId' => '1000',
         'hasUrls' => false,
         'uriFormat' => null,
         'template' => null,

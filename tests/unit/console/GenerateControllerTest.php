@@ -23,9 +23,6 @@ class GenerateControllerTest extends ConsoleTest
             'entryTypes' => [
                 'class' => EntryTypesFixture::class,
             ],
-            'sections' => [
-                'class' => SectionsFixture::class,
-            ],
         ];
     }
 
@@ -43,6 +40,25 @@ class GenerateControllerTest extends ConsoleTest
     protected function _after()
     {
         FileHelper::removeDirectory($this->siteTemplatesPath);
+    }
+
+    /**
+     * @throws InvalidConfigException
+     */
+    public function testCreateSection()
+    {
+        $this->consoleCommand('viget-base/generate/section', [
+            'myChannel'
+        ])
+            ->exitCode(ExitCode::OK)
+            ->run();
+
+        $siteId = Craft::$app->sites->getPrimarySite()->id;
+        $section = Craft::$app->sections->getSectionByHandle('myChannel');
+        $this->assertNotNull($section);
+//        $sectionSettings = $section->getSiteSettings()[$siteId];
+        $this->assertEquals('My Channel', $section->name);
+//        $this->assertEquals('_elements/myChannel', $sectionSettings->template);
     }
 
     /**

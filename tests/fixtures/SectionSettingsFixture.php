@@ -16,4 +16,10 @@ class SectionSettingsFixture extends Fixture
      * @inheritdoc
      */
     public $modelClass = Section_SiteSettings::class;
+
+    /**
+     * @inheritdoc
+     */
+    public $depends = [SitesFixture::class];
+
 }

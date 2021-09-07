@@ -1,5 +1,9 @@
 # Release Notes for Viget Base Module
 
+## 3.1.2 - 2021-09-07
+
+- Fix issues with turbo compatibility by disabling it for the entire parts kit (#40)
+
 ## 3.1.1 - 2021-06-14
 
 - Fix issue with accessing user early conflicting with some plugins (#34)

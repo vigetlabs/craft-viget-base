@@ -79,4 +79,11 @@ class PartsKitTest extends Unit
 
         $this->assertInstanceOf('craft\elements\Asset', $image);
     }
+
+    public function testGetFirstNavUrl()
+    {
+        Craft::$app->request->setUrl('/parts-kit');
+
+        $this->assertEquals('/parts-kit/button/blue', Module::$instance->partsKit->getFirstNavUrl());
+    }
 }

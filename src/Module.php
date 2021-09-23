@@ -6,6 +6,8 @@ use Craft;
 use yii\base\Event;
 use craft\events\RegisterCpNavItemsEvent;
 use craft\events\RegisterTemplateRootsEvent;
+use craft\events\RegisterUrlRulesEvent;
+use craft\web\UrlManager;
 use craft\web\twig\variables\Cp;
 use craft\web\View;
 use craft\web\twig\variables\CraftVariable;
@@ -141,8 +143,8 @@ class Module extends \yii\base\Module
             }
         );
 
-        // Define viget base templates directory
-        if (PartsKit::isRequest()) {
+        // Define viget base templates directory and index url
+        if (self::$instance->partsKit->isRequest()) {
             Event::on(
                 View::class,
                 View::EVENT_REGISTER_SITE_TEMPLATE_ROOTS,
@@ -150,6 +152,16 @@ class Module extends \yii\base\Module
                     if (is_dir($baseDir = __DIR__ . DIRECTORY_SEPARATOR . 'templates')) {
                         $e->roots['viget-base'] = $baseDir;
                     }
+                }
+            );
+
+            Event::on(
+                UrlManager::class,
+                UrlManager::EVENT_REGISTER_SITE_URL_RULES,
+                function (RegisterUrlRulesEvent $event) {
+                    $partsKitDir = self::$config['partsKit']['directory'];
+
+                    $event->rules[$partsKitDir] = ['template' => 'viget-base/parts-kit/index'];
                 }
             );
         }

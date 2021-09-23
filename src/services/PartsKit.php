@@ -7,6 +7,7 @@ use craft\helpers\StringHelper;
 use craft\helpers\FileHelper;
 use craft\helpers\UrlHelper;
 use craft\helpers\Template as TemplateHelper;
+use craft\helpers\ArrayHelper;
 use craft\elements\Asset;
 use Twig\Markup;
 
@@ -41,15 +42,15 @@ class PartsKit
     /**
      * Get navigation of files/folders in parts kit
      *
-     * @return array|null
+     * @return array
      */
-    public static function getNav(): ?array
+    public static function getNav(): array
     {
         $partsKitDir = self::getConfig('directory');
 
         $templates = self::_getTemplates($partsKitDir);
 
-        if (empty($templates)) return null;
+        if (empty($templates)) return [];
 
         $items = [];
 
@@ -85,6 +86,21 @@ class PartsKit
         }
 
         return $items;
+    }
+
+    /**
+     * Get the first component's URL
+     *
+     * @return string|null
+     */
+    public static function getFirstNavUrl(): ?string
+    {
+        $nav = self::getNav();
+        $firstUrl = ArrayHelper::firstValue($nav)['items'][0]['url'] ?? null;
+
+        if (!$firstUrl) return null;
+
+        return parse_url($firstUrl)['path'];
     }
 
     /**

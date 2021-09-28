@@ -6,32 +6,30 @@ nav_order: 1
 
 # Installation
 
-## If you do not have an existing module
-
-Use the [Craft Starter Module](https://github.com/vigetlabs/craft-starter-module)
-
-## If you have an existing module
-
 ```
 composer require viget/craft-viget-base
 ```
 
 Lock it at a specific version if desired.
 
-Open the main `Module` class that you want to use. At the top of your `init` method, add the following:
+Open the `config/app.php` and add the bootstrap the module (merging with existing modules if they exist):
 
 ```php
-// Initialize all the viget base code
-$this->setModules([
-    'viget-base' => [
-        'class' => '\viget\base\Module',
-    ],
-]);
+<?php
 
-$this->getModule('viget-base');
+return [
+    'modules' => [
+        'viget-base' => [
+            'class' => \viget\base\Module::class,
+        ],
+    ],
+    'bootstrap' => [
+        'viget-base',
+    ],
+];
 ```
 
-### Configure Phone Home
+## Configure Phone Home
 
 Add the following ENV variables to your enviroment file in all environments
 

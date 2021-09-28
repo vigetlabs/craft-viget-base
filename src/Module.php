@@ -51,7 +51,7 @@ class Module extends \yii\base\Module
             Craft::$app->view->registerTwigExtension(new Extension());
 
             if (!Craft::$app->request->getIsAjax() && !Craft::$app->request->getIsConsoleRequest()) {
-                $this->view->registerAssetBundle(Bundle::class);
+                Craft::$app->view->registerAssetBundle(Bundle::class);
             }
         }
 
@@ -161,7 +161,7 @@ class Module extends \yii\base\Module
                 function (RegisterUrlRulesEvent $event) {
                     $partsKitDir = self::$config['partsKit']['directory'];
 
-                    $event->rules[$partsKitDir] = ['template' => 'viget-base/parts-kit/index'];
+                    $event->rules[$partsKitDir] = 'viget-base/parts-kit/redirect-index';
                 }
             );
         }

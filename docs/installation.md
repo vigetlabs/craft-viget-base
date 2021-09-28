@@ -12,7 +12,7 @@ composer require viget/craft-viget-base
 
 Lock it at a specific version if desired.
 
-Open the `config/app.php` and add the bootstrap the module (merging with existing modules if they exist):
+Open the `config/app.php` and bootstrap the module (merging with existing modules if they exist):
 
 ```php
 <?php

@@ -173,17 +173,23 @@ class PartsKit {
         })
     }
 
-    noUserInput = () => document.activeElement.tagName !== 'INPUT'
+    hasUserInput = () => document.activeElement.tagName === 'INPUT'
 
-    handleKeydown = ({ key }) => {
-        if ((key === "f" || key === "Escape") && this.noUserInput()) {
+    handleKeydown = ({key, metaKey, ctrlKey}) => {
+        const hasModifier = metaKey || ctrlKey
+
+        // Short circuit if a user is typing in an input or pressing a modifying key
+        if (this.hasUserInput() || hasModifier) {
+            return;
+        }
+
+        if (['f', 'Escape'].includes(key)) {
             this.toggleSidebar();
         }
 
-        if(key === "/" && this.noUserInput()) {
+        if (key === "/") {
             this.focusOnSearch();
         }
-
     };
 
     focusOnSearch() {

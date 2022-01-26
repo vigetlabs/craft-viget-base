@@ -29,6 +29,21 @@ return [
 ];
 ```
 
+## Upgrading
+
+If you were using a version of the base module pre 4.0.0, you were previously initializing the base module within an existing module. The following code should now be removed and you should bootstrap in the `config/app.php` file:
+
+```php
+// Initialize all the viget base code
+$this->setModules([
+    'viget-base' => [
+        'class' => '\viget\base\Module',
+    ],
+]);
+
+$this->getModule('viget-base');
+```
+
 ## Configure Phone Home
 
 Add the following ENV variables to your enviroment file in all environments

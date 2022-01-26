@@ -1,5 +1,10 @@
 # Release Notes for Viget Base Module
 
+## 4.0.0 - 2022-01-26
+
+- Automatically redirect parts kit index request to first component ([#36](https://github.com/vigetlabs/craft-viget-base/issues/36))
+- Change installation recommendation to bootstrap the module instead of initiating within an existing module. [See upgrade notes](http://code.viget.com/craft-viget-base/installation.html#upgrading)
+
 ## 3.1.3 - 2022-01-26
 
 - Fix `f` keyboard shortcut triggering when CTRL or CMD is also pressed. (#44)

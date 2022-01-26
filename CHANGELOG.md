@@ -1,5 +1,9 @@
 # Release Notes for Viget Base Module
 
+## 3.1.3 - 2022-01-26
+
+- Fix `f` keyboard shortcut triggering when CTRL or CMD is also pressed. (#44)
+
 ## 3.1.2 - 2021-09-07
 
 - Fix issues with turbo compatibility by disabling it for the entire parts kit (#40)

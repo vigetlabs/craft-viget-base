@@ -203,7 +203,6 @@
     color: var(--pk-controls-text);
     display: flex;
     justify-content: flex-end;
-    margin-bottom: .75rem;
     padding: .375rem .75rem;
 }
 

@@ -1,5 +1,12 @@
 # Release Notes for Viget Base Module
 
+## 4.1.0 - 2022-05-24
+
+- Parts kit UI ([#50](https://github.com/vigetlabs/craft-viget-base/pull/50))
+  - main panel is no taller than content
+  - no unforced vertical overflow
+  - sidebar is sticky and scrolls independent of the main panel
+
 ## 4.0.0 - 2022-01-26
 
 - Automatically redirect parts kit index request to first component ([#36](https://github.com/vigetlabs/craft-viget-base/issues/36))

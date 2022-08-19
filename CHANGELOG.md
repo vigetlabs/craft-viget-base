@@ -1,5 +1,8 @@
 # Release Notes for Viget Base Module
 
+## 5.0.0 - 2022-08-19
+- Initial Craft CMS 4 Release
+
 ## 4.1.0 - 2022-05-24
 
 - Parts kit UI ([#50](https://github.com/vigetlabs/craft-viget-base/pull/50))

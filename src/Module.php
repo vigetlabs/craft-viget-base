@@ -3,6 +3,7 @@
 namespace viget\base;
 
 use Craft;
+use yii\base\BootstrapInterface;
 use yii\base\Event;
 use craft\events\RegisterCpNavItemsEvent;
 use craft\events\RegisterTemplateRootsEvent;
@@ -26,21 +27,22 @@ use viget\base\services\Tracking;
 /**
  * Yii Module for setting up custom Twig functionality to keep templates streamlined
  */
-class Module extends \yii\base\Module
+class Module extends \yii\base\Module implements BootstrapInterface
 {
-    public static $instance;
     public static $config;
 
-    /**
-     * Initializes the module.
-     */
     public function init()
+    {
+        parent::init();
+        $this->bootstrap(Craft::$app);
+    }
+
+    public function bootstrap($app)
     {
         Craft::setAlias('@viget/base', __DIR__);
         $this->controllerNamespace = 'viget\base\controllers';
 
-        parent::init();
-        self::$instance = $this;
+        self::setInstance($this);
 
         $this->_loadConfig();
         $this->_setComponents();
@@ -120,7 +122,7 @@ class Module extends \yii\base\Module
             CraftVariable::EVENT_INIT,
             function (Event $e) {
                 $variable = $e->sender;
-                $variable->set('viget', self::$instance);
+                $variable->set('viget', self::getInstance());
             }
         );
 
@@ -150,7 +152,7 @@ class Module extends \yii\base\Module
         );
 
         // Define viget base templates directory and index url
-        if (self::$instance->partsKit->isRequest()) {
+        if (self::getInstance()->partsKit->isRequest()) {
             Event::on(
                 View::class,
                 View::EVENT_REGISTER_SITE_TEMPLATE_ROOTS,

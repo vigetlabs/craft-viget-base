@@ -13,7 +13,7 @@ use viget\base\Module;
  */
 class Tailwind extends Component
 {
-    public $tailwindConfig = null;
+    public ?array $tailwindConfig = null;
 
     public function init()
     {

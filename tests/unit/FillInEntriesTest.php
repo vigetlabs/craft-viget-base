@@ -44,7 +44,7 @@ class FillInEntriesTest extends Unit
             'limit' => 2,
         ]);
 
-        $entries = Module::$instance->util->fillInEntries($selectedEntries, $this->params, 4);
+        $entries = Module::getInstance()->util->fillInEntries($selectedEntries, $this->params, 4);
 
         $this->assertEquals(count($entries), 4);
     }
@@ -56,14 +56,14 @@ class FillInEntriesTest extends Unit
             'limit' => 4,
         ]);
 
-        $entries = Module::$instance->util->fillInEntries($selectedEntries, $this->params, 4);
+        $entries = Module::getInstance()->util->fillInEntries($selectedEntries, $this->params, 4);
 
         $this->assertEquals(count($entries), 4);
     }
 
     public function testNonePassed()
     {
-        $entries = Module::$instance->util->fillInEntries([], $this->params, 4);
+        $entries = Module::getInstance()->util->fillInEntries([], $this->params, 4);
 
         $this->assertEquals(count($entries), 4);
     }

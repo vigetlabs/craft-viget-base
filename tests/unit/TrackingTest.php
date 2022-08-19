@@ -18,11 +18,11 @@ class TrackingTest extends Unit
     {
         $this->assertEquals(
             'one|two|three',
-            Module::$instance->tracking->getGtmAttribute('one', 'two', 'three')
+            Module::getInstance()->tracking->getGtmAttribute('one', 'two', 'three')
         );
         $this->assertEquals(
             '&quot;one&quot;|two|three',
-            Module::$instance->tracking->getGtmAttribute('"one"', 'two', 'three')
+            Module::getInstance()->tracking->getGtmAttribute('"one"', 'two', 'three')
         );
     }
 
@@ -30,7 +30,7 @@ class TrackingTest extends Unit
     {
         $this->assertEquals(
             'one|two|three',
-            Module::$instance->tracking->getGtmAttribute([
+            Module::getInstance()->tracking->getGtmAttribute([
                 'one',
                 'two',
                 'three',
@@ -39,7 +39,7 @@ class TrackingTest extends Unit
 
         $this->assertEquals(
             '&quot;one&quot;|two|three',
-            Module::$instance->tracking->getGtmAttribute([
+            Module::getInstance()->tracking->getGtmAttribute([
                 '"one"',
                 'two',
                 'three',

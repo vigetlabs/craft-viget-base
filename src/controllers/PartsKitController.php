@@ -17,7 +17,7 @@ class PartsKitController extends \craft\web\Controller
      */
     public function actionRedirectIndex(): Response
     {
-        $redirectUrl = Module::$instance->partsKit->getFirstNavUrl();
+        $redirectUrl = Module::getInstance()->partsKit->getFirstNavUrl();
 
         if (!$redirectUrl) {
             throw new \Exception('Looks like you don’t have any parts kit components setup yet.');

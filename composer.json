@@ -23,12 +23,6 @@
         "craftcms/cms": "^3.5.0",
         "sleiman/airtable-php": "^2.4"
     },
-    "repositories": [
-        {
-            "type": "composer",
-            "url": "https://asset-packagist.org"
-        }
-    ],
     "require-dev": {
         "vlucas/phpdotenv": "^4.1.0",
         "codeception/codeception": "^4.1.1",
@@ -42,6 +36,14 @@
         "psr-4": {
             "viget\\base\\": "src/",
             "vigetbasetests\\fixtures\\": "tests/fixtures/"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "config": {
+        "allow-plugins": {
+            "yiisoft/yii2-composer": true,
+            "craftcms/plugin-installer": true
         }
     }
 }

@@ -15,7 +15,7 @@ class PhoneHomeJob extends BaseJob
     /**
      * @inheritdoc
      */
-    public function execute($queue)
+    public function execute($queue): void
     {
         PhoneHome::makeRequest();
     }
@@ -23,7 +23,7 @@ class PhoneHomeJob extends BaseJob
     /**
      * @inheritdoc
      */
-    protected function defaultDescription()
+    protected function defaultDescription(): ?string
     {
         return 'Phoning home';
     }

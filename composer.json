@@ -30,7 +30,8 @@
         "codeception/lib-asserts": "^1.1.0",
         "codeception/module-yii2": "^1.1.0",
         "phpunit/phpunit": "^7.5.20",
-        "codeception/module-phpbrowser": "^1.0.0"
+        "codeception/module-phpbrowser": "^1.0.0",
+        "craftcms/rector": "dev-main"
     },
     "autoload": {
         "psr-4": {

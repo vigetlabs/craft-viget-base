@@ -74,11 +74,17 @@ class Module extends \yii\base\Module
                     Craft::$app->user->checkPermission('accessCp') &&
                     !Craft::$app->request->getIsConsoleRequest()
                 ) {
-                    Craft::$app->user->identity->mergePreferences([
-                        'enableDebugToolbarForSite' => true,
-                        'enableDebugToolbarForCp' => true,
-                        'showFieldHandles' => true,
-                    ]);
+                    /**
+                     * Enables Yii debug bar when in dev mode
+                     * @see craft\web\Application::debugBootstrap()
+                     */
+                    $request = Craft::$app->getRequest();
+                    $request->headers->add('X-Debug', 'enable');
+
+                    // Preferences is read only now, so there's no way to override this one
+                    // Craft::$app->user->identity->mergePreferences([
+                    //     'showFieldHandles' => true,
+                    // ]);
                 }
             }
         );

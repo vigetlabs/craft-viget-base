@@ -8,7 +8,7 @@ use viget\base\Module;
 
 class PartsKitController extends \craft\web\Controller
 {
-    protected $allowAnonymous = true;
+    protected array|int|bool $allowAnonymous = true;
 
     /**
      * Redirect to the first component in the parts kit

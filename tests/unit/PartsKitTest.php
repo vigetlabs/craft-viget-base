@@ -30,7 +30,7 @@ class PartsKitTest extends Unit
     {
         Craft::$app->request->setUrl('/parts-kit/button/default');
 
-        $nav = Module::$instance->partsKit->getNav();
+        $nav = Module::getInstance()->partsKit->getNav();
 
         $this->assertEquals([
             'Button' => [
@@ -68,14 +68,14 @@ class PartsKitTest extends Unit
 
     public function testThemeCss()
     {
-        $themeCss = Module::$instance->partsKit->getTheme();
+        $themeCss = Module::getInstance()->partsKit->getTheme();
 
         $this->assertEquals('--pk-background: #2c3e50;--pk-main-background: #34495e;--pk-text: white;--pk-nav-icon: #2ecc71;--pk-nav-item-text-hover: white;--pk-nav-item-background-hover: rgba(255, 255, 255, 0.1);--pk-nav-subitem-text-hover: white;--pk-nav-subitem-background-hover: rgba(255, 255, 255, 0.1);--pk-nav-subitem-background-active: #2ecc71;--pk-nav-subitem-text-active: #fff;--pk-controls-text: rgba(255, 255, 255, 0.3);--pk-controls-border: rgba(255, 255, 255, 0.1);', $themeCss);
     }
 
     public function testGetImage()
     {
-        $image = Module::$instance->partsKit->getImage('sample.png');
+        $image = Module::getInstance()->partsKit->getImage('sample.png');
 
         $this->assertInstanceOf('craft\elements\Asset', $image);
     }
@@ -84,6 +84,6 @@ class PartsKitTest extends Unit
     {
         Craft::$app->request->setUrl('/parts-kit');
 
-        $this->assertEquals('/parts-kit/button/blue', Module::$instance->partsKit->getFirstNavUrl());
+        $this->assertEquals('/parts-kit/button/blue', Module::getInstance()->partsKit->getFirstNavUrl());
     }
 }

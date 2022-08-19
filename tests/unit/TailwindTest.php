@@ -16,7 +16,7 @@ class TailwindTest extends Unit
 
     public function testGetColors()
     {
-        $colors = Module::$instance->tailwind->getColors();
+        $colors = Module::getInstance()->tailwind->getColors();
 
         $this->assertEquals(
             [

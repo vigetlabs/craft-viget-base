@@ -16,9 +16,9 @@ class CpNav
      * Adds helpful items to the CP nav for development
      *
      * @param array $navItems
-     * @return void
+     * @return array
      */
-    public function addItems(array $navItems = [])
+    public function addItems(array $navItems = []): array
     {
         $settings = Module::$config['cpNav'];
 

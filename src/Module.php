@@ -28,6 +28,7 @@ use viget\base\services\Tracking;
  */
 class Module extends \yii\base\Module
 {
+    // Foo
     public static $instance;
     public static $config;
 

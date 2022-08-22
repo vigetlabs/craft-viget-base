@@ -1,10 +1,11 @@
-FROM php:7.3-fpm
+FROM php:8.1-fpm
 
 RUN apt-get update && apt-get install -y \
   libfreetype6-dev libjpeg62-turbo-dev \
   libmcrypt-dev libpng-dev libbz2-dev \
   libssl-dev autoconf libzip-dev \
   ca-certificates curl g++ libicu-dev \
+  libonig-dev \
   && apt-get install -y --no-install-recommends libmagickwand-dev \
   && rm -rf /var/lib/apt/lists/*
 
@@ -15,14 +16,11 @@ RUN docker-php-ext-install \
   zip iconv pdo_mysql intl soap
 
 RUN docker-php-ext-configure gd \
-  --with-freetype-dir=/usr/include/ \
-  --with-jpeg-dir=/usr/include/
+  --with-freetype \
+  --with-jpeg
 
-RUN pecl install imagick-3.4.3 && \
+RUN pecl install imagick && \
   docker-php-ext-enable imagick
-
-RUN pecl install mcrypt-1.0.3 && \
-  docker-php-ext-enable mcrypt
 
 RUN curl -sS https://getcomposer.org/installer | php -- \
   --install-dir=/usr/local/bin/ --filename=composer

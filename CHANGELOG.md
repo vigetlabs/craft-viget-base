@@ -2,7 +2,7 @@
 
 ## 5.0.0 - 2022-08-19
 - Initial Craft CMS 4 Release
-
+- Converted into an auto-bootstrapping extension/module.
 ## 4.1.0 - 2022-05-24
 
 - Parts kit UI ([#50](https://github.com/vigetlabs/craft-viget-base/pull/50))

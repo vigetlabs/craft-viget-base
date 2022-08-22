@@ -37,12 +37,12 @@ class PartsKitTest extends Unit
                 'items' => [
                     [
                         'title' => 'Blue',
-                        'url' => 'http://craft-base.test/parts-kit/button/blue',
+                        'url' => 'https://test.craftcms.test/parts-kit/button/blue',
                         'isActive' => false,
                     ],
                     [
                         'title' => 'Default',
-                        'url' => 'http://craft-base.test/parts-kit/button/default',
+                        'url' => 'https://test.craftcms.test/parts-kit/button/default',
                         'isActive' => true,
                     ],
                 ],
@@ -52,12 +52,12 @@ class PartsKitTest extends Unit
                 'items' => [
                     [
                         'title' => 'Dark theme',
-                        'url' => 'http://craft-base.test/parts-kit/cta-block/dark-theme',
+                        'url' => 'https://test.craftcms.test/parts-kit/cta-block/dark-theme',
                         'isActive' => false,
                     ],
                     [
                         'title' => 'Default',
-                        'url' => 'http://craft-base.test/parts-kit/cta-block/default',
+                        'url' => 'https://test.craftcms.test/parts-kit/cta-block/default',
                         'isActive' => false,
                     ],
                 ],

@@ -3,9 +3,9 @@
 namespace vigetbasetests\fixtures;
 
 use craft\records\Section_SiteSettings;
-use craft\test\Fixture;
+use craft\test\ActiveFixture;
 
-class SectionSettingsFixture extends Fixture
+class SectionSettingsFixture extends ActiveFixture
 {
     /**
      * @inheritdoc

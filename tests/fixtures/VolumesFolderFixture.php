@@ -5,17 +5,29 @@ namespace vigetbasetests\fixtures;
 use Craft;
 use craft\records\VolumeFolder;
 use craft\services\Volumes;
-use craft\test\Fixture;
+use craft\test\ActiveFixture;
 
-class VolumesFolderFixture extends Fixture
+class VolumesFolderFixture extends ActiveFixture
 {
+    /**
+     * @inheritdoc
+     */
     public $modelClass = VolumeFolder::class;
 
+    /**
+     * @inheritdoc
+     */
     public $dataFile = __DIR__ . '/data/volumefolders.php';
 
+    /**
+     * @inheritdoc
+     */
     public $depends = [VolumesFixture::class];
 
-    public function load()
+    /**
+     * @inheritdoc
+     */
+    public function load(): void
     {
         parent::load();
 

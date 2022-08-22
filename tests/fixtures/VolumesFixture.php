@@ -2,42 +2,54 @@
 
 namespace vigetbasetests\fixtures;
 
-use Craft;
-use craft\helpers\FileHelper;
-use craft\helpers\Json;
 use craft\records\Volume;
-use craft\services\Volumes;
-use craft\test\Fixture;
+use craft\test\ActiveFixture;
 
-class VolumesFixture extends Fixture
+class VolumesFixture extends ActiveFixture
 {
-    const BASE_URL = 'http://sample.test/';
-
+    /**
+     * @inheritdoc
+     */
     public $modelClass = Volume::class;
 
+    /**
+     * @inheritdoc
+     */
     public $dataFile = __DIR__ . '/data/volumes.php';
 
-    public function load()
-    {
-        parent::load();
+    /**
+     * @inheritdoc
+     */
+    public $depends = [FsFixture::class];
 
-        // Create the dirs
-        foreach ($this->getData() as $data) {
-            $settings = Json::decodeIfJson($data['settings']);
-            FileHelper::createDirectory($settings['path']);
-        }
 
-        Craft::$app->set('volumes', new Volumes());
-    }
+    // const BASE_URL = 'http://sample.test/';
 
-    public function unload()
-    {
-        // Remove the dirs
-        foreach ($this->getData() as $data) {
-            $settings = Json::decodeIfJson($data['settings']);
-            FileHelper::removeDirectory($settings['path']);
-        }
+    // public $modelClass = Volume::class;
 
-        parent::unload();
-    }
+    // public $dataFile = __DIR__ . '/data/volumes.php';
+
+    // public function load():void
+    // {
+    //     parent::load();
+
+    //     // Create the dirs
+    //     foreach ($this->getData() as $data) {
+    //         $settings = Json::decodeIfJson($data['settings']);
+    //         FileHelper::createDirectory($settings['path']);
+    //     }
+
+    //     Craft::$app->set('volumes', new Volumes());
+    // }
+
+    // public function unload():void
+    // {
+    //     // Remove the dirs
+    //     foreach ($this->getData() as $data) {
+    //         $settings = Json::decodeIfJson($data['settings']);
+    //         FileHelper::removeDirectory($settings['path']);
+    //     }
+
+    //     parent::unload();
+    // }
 }

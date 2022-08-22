@@ -71,7 +71,9 @@ class PartsKit
                     $file,
                 ]));
 
-                $isActive = $url === Craft::$app->request->absoluteUrl;
+                $requestUrl = UrlHelper::siteUrl(Craft::$app->request->url);
+
+                $isActive = $url === $requestUrl;
 
                 $items[$humanizedDir]['items'][] =  [
                     'title' => self::_formatName($file),

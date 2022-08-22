@@ -5,10 +5,10 @@ namespace vigetbasetests\fixtures;
 use Craft;
 use craft\records\Section;
 use craft\services\Sections;
-use craft\test\Fixture;
+use craft\test\ActiveFixture;
 
 
-class SectionsFixture extends Fixture
+class SectionsFixture extends ActiveFixture
 {
     /**
      * @inheritdoc
@@ -28,7 +28,7 @@ class SectionsFixture extends Fixture
     /**
      * @inheritdoc
      */
-    public function load()
+    public function load():void
     {
         parent::load();
 

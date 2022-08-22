@@ -10,7 +10,7 @@ modules:
   config:
     \craft\test\Craft:
       configFile: "tests/_craft/config/test.php"
-      entryUrl: "http://craft-base.test/index.php"
+      entryUrl: "https://test.craftcms.test/index.php"
       projectConfig: {}
       migrations: []
       plugins: []

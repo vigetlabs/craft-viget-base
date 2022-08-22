@@ -25,7 +25,7 @@ services:
       - DB_PASSWORD=craft_base
       - DB_TABLE_PREFIX=
       - SECURITY_KEY=asdfasdfasdfasdfasdf
-      - DEFAULT_SITE_URL=http://craft-base.test/
+      - CRAFT_SECURITY_KEY=SW_Ku1u1wrHS3WiJwR3Yz8CUyT9Fo4Up
 
   mysql:
     image: mysql:5.7.29

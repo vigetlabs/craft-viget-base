@@ -90,7 +90,7 @@ class FillInEntriesTest extends Unit
 
         $expectedIds = array_merge([$id], $additionalIds);
 
-        $entries = Module::$instance->util->fillInEntries($selectedEntry, $this->params, 3);
+        $entries = Module::getInstance()->util->fillInEntries($selectedEntry, $this->params, 3);
 
         $returnedIds = array_map(function($event) {
             return $event->id;

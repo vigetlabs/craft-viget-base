@@ -3,9 +3,9 @@
 namespace vigetbasetests\fixtures;
 
 use craft\records\EntryType;
-use craft\test\Fixture;
+use craft\test\ActiveFixture;
 
-class EntryTypesFixture extends Fixture
+class EntryTypesFixture extends ActiveFixture
 {
     /**
      * @inheritdoc

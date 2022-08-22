@@ -7,7 +7,6 @@ return [
         'fieldLayoutId' => null,
         'name' => 'Test Entry Type 1',
         'handle' => 'testEntryType1',
-        'titleLabel' => 'Title',
         'titleFormat' => null,
         'sortOrder' => '1',
         'uid' => 'entry-type-1000------------------uid'

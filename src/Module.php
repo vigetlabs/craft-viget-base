@@ -16,6 +16,7 @@ use craft\helpers\ArrayHelper;
 use craft\services\Plugins;
 
 use viget\base\Bundle;
+use viget\base\controllers\PartsKitController;
 use viget\base\twigextensions\Extension;
 use viget\base\services\CpNav;
 use viget\base\services\Util;
@@ -40,12 +41,19 @@ class Module extends \yii\base\Module implements BootstrapInterface
     public function bootstrap($app)
     {
         Craft::setAlias('@viget/base', __DIR__);
-        $this->controllerNamespace = 'viget\base\controllers';
 
         self::setInstance($this);
 
         $this->_loadConfig();
         $this->_setComponents();
+
+        // Auto-bootstrapping requires that we
+        // manually register our controller paths
+        if (Craft::$app->request->isConsoleRequest() === false) {
+            Craft::$app->controllerMap['parts-kit'] = [
+                'class' => PartsKitController::class,
+            ];
+        }
 
         if (Craft::$app->request->getIsSiteRequest()) {
             $this->_bindEvents();
@@ -169,7 +177,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
                 function (RegisterUrlRulesEvent $event) {
                     $partsKitDir = self::$config['partsKit']['directory'];
 
-                    $event->rules[$partsKitDir] = 'viget-base/parts-kit/redirect-index';
+                    $event->rules[$partsKitDir] = 'parts-kit/redirect-index';
                 }
             );
         }

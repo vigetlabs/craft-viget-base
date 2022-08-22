@@ -26,6 +26,7 @@ services:
       - DB_TABLE_PREFIX=
       - SECURITY_KEY=asdfasdfasdfasdfasdf
       - CRAFT_SECURITY_KEY=SW_Ku1u1wrHS3WiJwR3Yz8CUyT9Fo4Up
+      - XDEBUG_MODE
 
   mysql:
     image: mysql:5.7.29

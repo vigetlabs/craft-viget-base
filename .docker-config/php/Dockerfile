@@ -9,6 +9,13 @@ RUN apt-get update && apt-get install -y \
   && apt-get install -y --no-install-recommends libmagickwand-dev \
   && rm -rf /var/lib/apt/lists/*
 
+RUN pecl install xdebug && \
+  docker-php-ext-enable xdebug
+
+COPY ./.docker-config/php/xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
+
+COPY ./.docker-config/php/error_reporting.ini /usr/local/etc/php/conf.d/error_reporting.ini
+
 RUN docker-php-ext-install \
   bcmath bz2 exif \
   ftp gd gettext mbstring opcache \
@@ -24,8 +31,6 @@ RUN pecl install imagick && \
 
 RUN curl -sS https://getcomposer.org/installer | php -- \
   --install-dir=/usr/local/bin/ --filename=composer
-RUN composer self-update --1
-RUN composer global require hirak/prestissimo
 
 COPY ./.docker-config/php/docker-php-settings.ini /usr/local/etc/php/conf.d/docker-php-settings.ini
 

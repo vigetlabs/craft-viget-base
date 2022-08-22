@@ -14,7 +14,7 @@ use craft\web\View;
 use craft\web\twig\variables\CraftVariable;
 use craft\helpers\ArrayHelper;
 use craft\services\Plugins;
-
+use craft\web\Application as CraftWebApplication;
 use viget\base\Bundle;
 use viget\base\controllers\PartsKitController;
 use viget\base\twigextensions\Extension;
@@ -49,7 +49,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
 
         // Auto-bootstrapping requires that we
         // manually register our controller paths
-        if (Craft::$app->request->isConsoleRequest() === false) {
+        if (Craft::$app instanceof CraftWebApplication) {
             Craft::$app->controllerMap['parts-kit'] = [
                 'class' => PartsKitController::class,
             ];

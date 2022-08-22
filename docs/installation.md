@@ -12,37 +12,14 @@ composer require viget/craft-viget-base
 
 Lock it at a specific version if desired.
 
-Open the `config/app.php` and bootstrap the module (merging with existing modules if they exist):
+## Auto-Bootstrapping Yii2 Extension
 
-```php
-<?php
+This package is a Yii2 extension (and a module) that [bootstraps itself](https://www.yiiframework.com/doc/guide/2.0/en/structure-extensions#bootstrapping-classes).
 
-return [
-    'modules' => [
-        'viget-base' => [
-            'class' => \viget\base\Module::class,
-        ],
-    ],
-    'bootstrap' => [
-        'viget-base',
-    ],
-];
-```
+This means that it’s automatically loaded with Craft, without you having to install it or configure it in any way.
 
-## Upgrading
-
-If you were using a version of the base module pre 4.0.0, you were previously initializing the base module within an existing module. The following code should now be removed and you should bootstrap in the `config/app.php` file:
-
-```php
-// Initialize all the viget base code
-$this->setModules([
-    'viget-base' => [
-        'class' => '\viget\base\Module',
-    ],
-]);
-
-$this->getModule('viget-base');
-```
+### Migration
+If you're upgrading an old project, remove all of the bootstrapping code (config/app.php or Yii submodule)
 
 ## Configure Phone Home
 
@@ -54,7 +31,3 @@ AIRTABLE_BASE
 ```
 
 Using the base ID from the Craft Inventory Airtable and the API key from 1Password for the Viget Airtable account.
-
-### Delete code
-
-If you used anything that was previously in the [Starter Module](https://github.com/vigetlabs/craft-starter-module), you can likely delete a bunch of code from your module. Carefully examine the docs to see what you can remove.

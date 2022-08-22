@@ -20,10 +20,6 @@ jobs:
           MYSQL_PASSWORD: craft_base
     steps:
       - checkout
-      - run: sudo apt update
-      - run: sudo apt install libpng-dev default-mysql-client
-      - run: sudo docker-php-ext-install gd pdo_mysql zip
-      - run: sudo composer self-update
       - restore_cache:
           keys:
             - composer-{{ checksum "composer.lock" }}

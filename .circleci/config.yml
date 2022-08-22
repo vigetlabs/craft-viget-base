@@ -3,7 +3,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/php:7.3
+      - image: cimg/php:7.4-browsers
         environment:
           ENVIRONMENT: test
           DB_DSN: "mysql:host=0.0.0.0;port=3306;dbname=craft_base_test"
@@ -12,7 +12,7 @@ jobs:
           DB_TABLE_PREFIX:
           SECURITY_KEY: asdfasdfasdfasdfasdf
           DEFAULT_SITE_URL: http://craft-base.test/
-      - image: mysql:5.7.29
+      - image: cimg/mysql:8.0
         environment:
           MYSQL_ROOT_PASSWORD: root
           MYSQL_DATABASE: craft_base_test

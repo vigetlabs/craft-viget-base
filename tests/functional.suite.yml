@@ -8,6 +8,6 @@
 actor: FunctionalTester
 modules:
     enabled:
-      - Asserts
-      - \craft\test\Craft
-      - \Helper\Functional
+        - Asserts
+        - \craft\test\Craft
+        - \Helper\Functional

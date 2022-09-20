@@ -76,8 +76,8 @@ class Module extends \yii\base\Module implements BootstrapInterface
 
         // Always turn on the debug bar and field handles in dev environment (for logged in users)
         Event::on(
-            Plugins::class,
-            Plugins::EVENT_AFTER_LOAD_PLUGINS,
+            CraftWebApplication::class,
+            CraftWebApplication::EVENT_INIT,
             function (Event $event) {
                 if (
                     Craft::$app->env === 'dev' &&

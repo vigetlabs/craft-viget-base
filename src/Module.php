@@ -78,9 +78,10 @@ class Module extends \yii\base\Module implements BootstrapInterface
         Event::on(
             CraftWebApplication::class,
             CraftWebApplication::EVENT_INIT,
-            function (Event $event) {
+            static function (Event $event) {
                 if (
                     Craft::$app->env === 'dev' &&
+                    self::$config['yiiDebugBar'] === true &&
                     Craft::$app->user->checkPermission('accessCp') &&
                     !Craft::$app->request->getIsConsoleRequest()
                 ) {
@@ -90,11 +91,6 @@ class Module extends \yii\base\Module implements BootstrapInterface
                      */
                     $request = Craft::$app->getRequest();
                     $request->headers->add('X-Debug', 'enable');
-
-                    // Preferences is read only now, so there's no way to override this one
-                    // Craft::$app->user->identity->mergePreferences([
-                    //     'showFieldHandles' => true,
-                    // ]);
                 }
             }
         );
@@ -138,15 +134,18 @@ class Module extends \yii\base\Module implements BootstrapInterface
         Event::on(
             View::class,
             View::EVENT_END_BODY,
-            function (Event $e) {
-                $element = Craft::$app->getUrlManager()->getMatchedElement();
-
-                if (!$element) return;
-
+            static function (Event $e) {
                 if (
                     Craft::$app->config->general->devMode ||
                     Craft::$app->user->checkPermission('accessCp')
                 ) {
+
+                    $element = Craft::$app->getUrlManager()->getMatchedElement();
+
+                    if (!$element) {
+                        return;
+                    }
+
                     echo '<a
                             href="' . $element->cpEditUrl . '"
                             class="edit-entry"
@@ -210,6 +209,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
     private function _loadConfig()
     {
         $defaults = [
+            'yiiDebugBar' => true,
             'cpNav' => [
                 'useDefaults' => true,
                 'navItems' => [],

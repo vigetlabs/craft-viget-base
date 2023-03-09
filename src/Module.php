@@ -32,12 +32,6 @@ class Module extends \yii\base\Module implements BootstrapInterface
 {
     public static $config;
 
-    public function init()
-    {
-        parent::init();
-        $this->bootstrap(Craft::$app);
-    }
-
     public function bootstrap($app)
     {
         Craft::setAlias('@viget/base', __DIR__);

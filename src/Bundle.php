@@ -17,7 +17,7 @@ class Bundle extends AssetBundle
         ];
 
         // Is this a parts kit request
-        if (PartsKit::isRequest()) {
+        if (PartsKit::isRequest() && !PartsKit::isV2()) {
             $css[] = 'css/parts-kit.css';
 
             $this->js = [

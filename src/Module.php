@@ -145,6 +145,12 @@ class Module extends \yii\base\Module
 
         // Define viget base templates directory and index url
         if (self::$instance->partsKit->isRequest()) {
+
+            if(PartsKit::isRoot() && PartsKit::isV2()) {
+                // Hacks to hide the Yii Debug bar on the root of the v2 parts kit
+                Craft::$app->getRequest()->setIsLivePreview(true);
+            }
+
             Event::on(
                 View::class,
                 View::EVENT_REGISTER_SITE_TEMPLATE_ROOTS,
@@ -161,7 +167,7 @@ class Module extends \yii\base\Module
                 function (RegisterUrlRulesEvent $event) {
                     $partsKitDir = self::$config['partsKit']['directory'];
 
-                    $event->rules[$partsKitDir] = 'viget-base/parts-kit/redirect-index';
+                    $event->rules[$partsKitDir] = self::$config['partsKit']['controllerPath'] . '/redirect-index';
                 }
             );
         }
@@ -205,6 +211,8 @@ class Module extends \yii\base\Module
                 'layout' => '_layouts/app',
                 'volume' => 'partsKit',
                 'theme' => 'light',
+                'version' => 1, // Can be 1 or 2
+                'controllerPath' => 'viget-base/parts-kit',
             ],
             'tailwind' => [
                 'configPath' => Craft::getAlias('@config/tailwind/tailwind.json'),

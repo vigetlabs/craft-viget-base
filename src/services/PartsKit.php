@@ -29,6 +29,28 @@ class PartsKit
     }
 
     /**
+     * Determine if top level of the parts kit folder. i.e. /parts-kit/
+     * @return bool
+     */
+    public static function isRoot(): bool
+    {
+        return self::isRequest() && count(Craft::$app->request->segments) === 1;
+    }
+
+    /**
+     * Should we show the v2 version of the parts kit
+     * @return bool
+     */
+    public static function isV2(): bool
+    {
+        return self::isRequest()
+            && (
+                (int)Craft::$app->request->getQueryParam('version') === 2
+                || self::getConfig('version') === 2
+            );
+    }
+
+    /**
      * Get a config item either the default or from the config file
      *
      * @param string $key

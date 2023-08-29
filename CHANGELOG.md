@@ -1,5 +1,8 @@
 # Release Notes for Viget Base Module
 
+## 5.0.2 - 2023-08-29
+- Allows collections in `Util::fillInEntries()` method.
+
 ## 5.0.1 - 2023-03-01
 - Adds `yiiDebugBar` config option to disable the Yii debug bar while in dev mode.
 - Don't query for edit entry button unless the user has permission to see button.

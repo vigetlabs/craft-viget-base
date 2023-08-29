@@ -1,6 +1,6 @@
 # Release Notes for Viget Base Module
 
-## 5.0.2 - 2023-08-29
+## 5.0.3 - 2023-08-29
 - Allows collections in `Util::fillInEntries()` method.
 
 ## 5.0.1 - 2023-03-01

@@ -1,5 +1,8 @@
 # Release Notes for Viget Base Module
 
+## 5.0.4 - 2023-10-26
+Add `disableEditButton` option to module config - [#69](https://github.com/vigetlabs/craft-viget-base/issues/69)
+
 ## 5.0.3 - 2023-08-29
 - Allows collections in `Util::fillInEntries()` method.
 

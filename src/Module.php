@@ -130,6 +130,12 @@ class Module extends \yii\base\Module implements BootstrapInterface
             View::EVENT_END_BODY,
             static function (Event $e) {
                 if (
+                    self::$config['disableEditButton']
+                ) {
+                    return;
+                }
+
+                if (
                     Craft::$app->config->general->devMode ||
                     Craft::$app->user->checkPermission('accessCp')
                 ) {
@@ -219,6 +225,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
             'tailwind' => [
                 'configPath' => Craft::getAlias('@config/tailwind/tailwind.json'),
             ],
+            'disableEditButton' => false,
         ];
 
         $userSettings = Craft::$app->config->getConfigFromFile('viget');

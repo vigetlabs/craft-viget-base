@@ -59,7 +59,7 @@ class PartsKit
         $partsPath = $templatesPath . '/' . $partsKitFolderName . '/';
 
         // Combine and sort all files & directories in the parts kit
-        $directories = \yii\helpers\FileHelper::findDirectories($partsPath);
+        $directories = FileHelper::findDirectories($partsPath);
         $files = FileHelper::findFiles($partsPath);
 
         $templates = [
@@ -67,14 +67,24 @@ class PartsKit
             ...$files
         ];
 
-        sort($templates);
+        $skipPaths = [
+            $partsPath . 'index.twig',
+            $partsPath . 'index.html',
+        ];
 
+        sort($templates);
 
         /** @var NavNode[] $result */
         $result = [];
         // Loop through all the paths in the folder.
         // Creating a NavNode object and putting the path to each node in the map.
         foreach ($templates as $templatePath) {
+
+            // Skip ignored paths
+            if (in_array($templatePath, $skipPaths)) {
+                continue;
+            }
+
             $path = str_replace($partsPath, '', $templatePath);
             $pathParts = explode('/', $path);
             $title = self::_formatTitle(end($pathParts));

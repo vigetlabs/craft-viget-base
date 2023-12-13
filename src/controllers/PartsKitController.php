@@ -25,4 +25,12 @@ class PartsKitController extends \craft\web\Controller
 
         return $this->redirect($redirectUrl, 301);
     }
+
+    public function actionConfig(): Response
+    {
+        return $this->asJson([
+            'schemaVersion' => '0.0.1',
+            'nav' => Module::getInstance()->partsKit->getNav(),
+        ]);
+    }
 }

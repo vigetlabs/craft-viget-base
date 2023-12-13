@@ -7,8 +7,6 @@ use yii\base\BootstrapInterface;
 use yii\base\Event;
 use craft\events\RegisterCpNavItemsEvent;
 use craft\events\RegisterTemplateRootsEvent;
-use craft\events\RegisterUrlRulesEvent;
-use craft\web\UrlManager;
 use craft\web\twig\variables\Cp;
 use craft\web\View;
 use craft\web\twig\variables\CraftVariable;
@@ -52,10 +50,6 @@ class Module extends \yii\base\Module implements BootstrapInterface
             $this->_bindEvents();
 
             Craft::$app->view->registerTwigExtension(new Extension());
-
-            if (!Craft::$app->request->getIsAjax() && !Craft::$app->request->getIsConsoleRequest()) {
-                Craft::$app->view->registerAssetBundle(Bundle::class);
-            }
         }
 
         if (Craft::$app->request->getIsCpRequest()) {
@@ -147,7 +141,19 @@ class Module extends \yii\base\Module implements BootstrapInterface
 
                     echo '<a
                             href="' . $element->cpEditUrl . '"
-                            class="edit-entry"
+                            style="
+                                background: #e5422b;
+                                border-top-right-radius: 5px;
+                                bottom: 0;
+                                color: #fff;
+                                font-size: 14px;
+                                left: 0;
+                                line-height: 1;
+                                padding: 10px;
+                                position: fixed;
+                                text-decoration: none;
+                                z-index: 10;
+                            "
                             target="_blank"
                             rel="noopener"
                           >

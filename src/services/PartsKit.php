@@ -6,7 +6,6 @@ use Craft;
 use craft\helpers\StringHelper;
 use craft\helpers\FileHelper;
 use craft\helpers\Template as TemplateHelper;
-use craft\helpers\ArrayHelper;
 use craft\elements\Asset;
 use Twig\Markup;
 use viget\base\models\NavNode;
@@ -28,6 +27,16 @@ class PartsKit
     }
 
     /**
+     * Determine if this is a request to the root of the parts kit
+     * @return bool
+     */
+    public static function isRootRequest(): bool
+    {
+        $isRoot = count(Craft::$app->request->getSegments()) === 1;
+        return $isRoot && self::isRequest();
+    }
+
+    /**
      * Get a config item either the default or from the config file
      *
      * @param string $key
@@ -46,7 +55,8 @@ class PartsKit
     public static function getNav(): array
     {
         $templatesPath = Craft::$app->getPath()->getSiteTemplatesPath();
-        $partsPath = $templatesPath . '/' . 'parts-kit' . '/';
+        $partsKitFolderName = self::getConfig('directory');
+        $partsPath = $templatesPath . '/' . $partsKitFolderName . '/';
 
         // Combine and sort all files & directories in the parts kit
         $directories = \yii\helpers\FileHelper::findDirectories($partsPath);
@@ -67,13 +77,15 @@ class PartsKit
         foreach ($templates as $templatePath) {
             $path = str_replace($partsPath, '', $templatePath);
             $pathParts = explode('/', $path);
-            // TODO format name
-            $title = end($pathParts);
+            $title = self::_formatTitle(end($pathParts));
+            $url = is_file($templatePath)
+                ? '/' . $partsKitFolderName . '/' . self::_removeExtension($path)
+                : null;
 
             $result[$path] = new NavNode(
                 title: $title,
-                url: $path, // TODO only use URL if there's a file
                 path: $path,
+                url: $url,
             );
         }
 
@@ -101,127 +113,12 @@ class PartsKit
     }
 
     /**
-     * Get the first component's URL
-     *
-     * @return string|null
-     */
-    public static function getFirstNavUrl(): ?string
-    {
-        $nav = self::getNav();
-        $firstUrl = ArrayHelper::firstValue($nav)['items'][0]['url'] ?? null;
-
-        if (!$firstUrl) return null;
-
-        return parse_url($firstUrl)['path'];
-    }
-
-    /**
-     * Get the CSS variables that power the theme
-     *
-     * @return string
-     */
-    public static function getTheme(): string
-    {
-        $themes = [
-            'light' => [
-                'background' => '#ededed',
-                'main-background' => '#fff',
-                'text' => '#202020',
-                'nav-icon' => '#148bbe',
-                'nav-item-text-hover' => '#202020',
-                'nav-item-background-hover' => '#dbdbdb',
-                'nav-subitem-text-hover' => '#202020',
-                'nav-subitem-background-hover' => '#dbdbdb',
-                'nav-subitem-background-active' => '#148bbe',
-                'nav-subitem-text-active' => '#fff',
-                'controls-text' => '#a7a9ac',
-                'controls-border' => '#dbdbdb',
-            ],
-
-            'dark' => [
-                'background' => '#2f2f2f',
-                'main-background' => '#333',
-                'text' => 'rgba(255, 255, 255, 0.8)',
-                'nav-icon' => '#1ea7fd',
-                'nav-item-text-hover' => '#fff',
-                'nav-item-background-hover' => 'rgba(250, 250, 252, 0.1)',
-                'nav-subitem-text-hover' => '#fff',
-                'nav-subitem-background-hover' => 'rgba(250, 250, 252, 0.1)',
-                'nav-subitem-background-active' => '#1ea7fd',
-                'nav-subitem-text-active' => '#fff',
-                'controls-text' => '#999',
-                'controls-border' => 'rgba(255, 255, 255, 0.1)',
-            ],
-        ];
-
-        $theme = self::getConfig('theme');
-
-        // If a theme name is passed instead of
-        // custom config, select that theme
-        if (!is_array($theme)) {
-            $theme = $themes[$theme] ?? $themes['light'];
-        }
-
-        $css = [];
-        foreach ($theme as $property => $value) {
-            $css[] = "--pk-{$property}: {$value};";
-        }
-        return implode('', $css);
-    }
-
-    /**
-     * Get templates in parts kit folder
-     *
-     * @param string $partsKitDir
-     * @return array
-     */
-    private static function _getTemplates(string $partsKitDir): array
-    {
-        $templates = [];
-
-        $templatesPath = Craft::$app->getPath()->getSiteTemplatesPath();
-        $partsPath = $templatesPath . '/' . $partsKitDir . '/';
-
-        if (!is_dir($partsPath)) return [];
-
-        $files = FileHelper::findFiles($partsPath);
-
-        foreach ($files as $file) {
-            $file = str_replace($partsPath, '', $file);
-            $count = substr_count($file, '/');
-
-            // This doesn't fit the dir/file structure, so ignore
-            if ($count !== 1) continue;
-
-            $fileParts = explode('/', $file);
-            $dir = $fileParts[0];
-            $fileName = $fileParts[1];
-
-            // Don't include templates that are "hidden"
-            if ($fileName[0] === '_' || $fileName[0] === '.') continue;
-
-            // Key already exists, add to array
-            if (array_key_exists($dir, $templates)) {
-                $templates[$dir][] = self::_cleanFilename($fileName);
-            } else {
-                $templates[$dir] = [
-                    self::_cleanFilename($fileName),
-                ];
-            }
-        }
-
-        ksort($templates, SORT_NATURAL);
-
-        return $templates;
-    }
-
-    /**
      * Remove extension from file name
      *
      * @param string $file
      * @return string
      */
-    private static function _cleanFileName(string $file): string
+    private static function _removeExtension(string $file): string
     {
         $extensions = array_map(function($extension) {
             return '.' . $extension;
@@ -236,9 +133,12 @@ class PartsKit
      * @param string $str
      * @return string
      */
-    private static function _formatName(string $str): string
+    private static function _formatTitle(string $str): string
     {
-        return str_replace('-', ' ', StringHelper::humanize($str));
+        $str = self::_removeExtension($str);
+        $str = StringHelper::toKebabCase($str);
+        $str = StringHelper::humanize($str);
+        return str_replace('-', ' ', $str);
     }
 
     /**

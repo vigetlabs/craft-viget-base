@@ -174,16 +174,6 @@ class Module extends \yii\base\Module implements BootstrapInterface
                     }
                 }
             );
-
-            Event::on(
-                UrlManager::class,
-                UrlManager::EVENT_REGISTER_SITE_URL_RULES,
-                function (RegisterUrlRulesEvent $event) {
-                    $partsKitDir = self::$config['partsKit']['directory'];
-
-                    $event->rules[$partsKitDir] = 'parts-kit/redirect-index';
-                }
-            );
         }
     }
 

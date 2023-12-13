@@ -6,8 +6,8 @@ class NavNode implements \JsonSerializable
 {
     public function __construct(
         public string $title,
-        public string $url,
         public string $path,
+        public ?string $url = null,
         public array  $children = [],
     )
     {}

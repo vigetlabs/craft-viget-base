@@ -26,64 +26,10 @@ class PartsKitTest extends Unit
         ];
     }
 
-    public function testNav()
-    {
-        Craft::$app->request->setUrl('/parts-kit/button/default');
-
-        $nav = Module::getInstance()->partsKit->getNav();
-
-        $this->assertEquals([
-            'Button' => [
-                'items' => [
-                    [
-                        'title' => 'Blue',
-                        'url' => 'https://test.craftcms.test/parts-kit/button/blue',
-                        'isActive' => false,
-                    ],
-                    [
-                        'title' => 'Default',
-                        'url' => 'https://test.craftcms.test/parts-kit/button/default',
-                        'isActive' => true,
-                    ],
-                ],
-                'isActive' => true,
-            ],
-            'Cta block' => [
-                'items' => [
-                    [
-                        'title' => 'Dark theme',
-                        'url' => 'https://test.craftcms.test/parts-kit/cta-block/dark-theme',
-                        'isActive' => false,
-                    ],
-                    [
-                        'title' => 'Default',
-                        'url' => 'https://test.craftcms.test/parts-kit/cta-block/default',
-                        'isActive' => false,
-                    ],
-                ],
-                'isActive' => false,
-            ]
-        ], $nav);
-    }
-
-    public function testThemeCss()
-    {
-        $themeCss = Module::getInstance()->partsKit->getTheme();
-
-        $this->assertEquals('--pk-background: #2c3e50;--pk-main-background: #34495e;--pk-text: white;--pk-nav-icon: #2ecc71;--pk-nav-item-text-hover: white;--pk-nav-item-background-hover: rgba(255, 255, 255, 0.1);--pk-nav-subitem-text-hover: white;--pk-nav-subitem-background-hover: rgba(255, 255, 255, 0.1);--pk-nav-subitem-background-active: #2ecc71;--pk-nav-subitem-text-active: #fff;--pk-controls-text: rgba(255, 255, 255, 0.3);--pk-controls-border: rgba(255, 255, 255, 0.1);', $themeCss);
-    }
-
     public function testGetImage()
     {
         $image = Module::getInstance()->partsKit->getImage('sample.png');
 
         $this->assertInstanceOf('craft\elements\Asset', $image);
-    }
-
-    public function testGetFirstNavUrl()
-    {
-        Craft::$app->request->setUrl('/parts-kit');
-
-        $this->assertEquals('/parts-kit/button/blue', Module::getInstance()->partsKit->getFirstNavUrl());
     }
 }

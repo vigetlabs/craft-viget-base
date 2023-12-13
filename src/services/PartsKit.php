@@ -5,12 +5,11 @@ namespace viget\base\services;
 use Craft;
 use craft\helpers\StringHelper;
 use craft\helpers\FileHelper;
-use craft\helpers\UrlHelper;
 use craft\helpers\Template as TemplateHelper;
 use craft\helpers\ArrayHelper;
 use craft\elements\Asset;
 use Twig\Markup;
-
+use viget\base\models\NavNode;
 use viget\base\Module;
 
 /**
@@ -46,48 +45,59 @@ class PartsKit
      */
     public static function getNav(): array
     {
-        $partsKitDir = self::getConfig('directory');
+        $templatesPath = Craft::$app->getPath()->getSiteTemplatesPath();
+        $partsPath = $templatesPath . '/' . 'parts-kit' . '/';
 
-        $templates = self::_getTemplates($partsKitDir);
+        // Combine and sort all files & directories in the parts kit
+        $directories = \yii\helpers\FileHelper::findDirectories($partsPath);
+        $files = FileHelper::findFiles($partsPath);
 
-        if (empty($templates)) return [];
+        $templates = [
+            ...$directories,
+            ...$files
+        ];
 
-        $items = [];
+        sort($templates);
 
-        foreach ($templates as $dir => $files) {
-            natcasesort($files);
 
-            $humanizedDir = self::_formatName($dir);
+        /** @var NavNode[] $result */
+        $result = [];
+        // Loop through all the paths in the folder.
+        // Creating a NavNode object and putting the path to each node in the map.
+        foreach ($templates as $templatePath) {
+            $path = str_replace($partsPath, '', $templatePath);
+            $pathParts = explode('/', $path);
+            // TODO format name
+            $title = end($pathParts);
 
-            $items[$humanizedDir] = [
-                'isActive' => false,
-                'items' => [],
-            ];
-
-            foreach ($files as $file) {
-                $url = UrlHelper::siteUrl(implode('/', [
-                    $partsKitDir,
-                    $dir,
-                    $file,
-                ]));
-
-                $requestUrl = UrlHelper::siteUrl(Craft::$app->request->url);
-
-                $isActive = $url === $requestUrl;
-
-                $items[$humanizedDir]['items'][] =  [
-                    'title' => self::_formatName($file),
-                    'url' => $url,
-                    'isActive' => $isActive,
-                ];
-
-                if ($isActive) {
-                    $items[$humanizedDir]['isActive'] = true;
-                }
-            }
+            $result[$path] = new NavNode(
+                title: $title,
+                url: $path, // TODO only use URL if there's a file
+                path: $path,
+            );
         }
 
-        return $items;
+        // Reverse the array, so we can build up child nav nodes into their parents.
+        // We remove child nodes as they're added.
+        $result = array_reverse($result);
+
+        foreach ($result as $node) {
+            $pathParts = explode('/', $node->path);
+            $parentPath = implode('/', array_slice($pathParts, 0, -1));
+            $parentNode = $result[$parentPath] ?? null;
+
+            if (!$parentNode) {
+                continue;
+            }
+
+            $parentNode->children[] = $node;
+            unset($result[$node->path]);
+        }
+
+        // Sort by keys so they're in alpha order
+        ksort($result);
+
+        return array_values($result);
     }
 
     /**

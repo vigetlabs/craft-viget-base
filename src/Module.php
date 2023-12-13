@@ -13,9 +13,7 @@ use craft\web\twig\variables\Cp;
 use craft\web\View;
 use craft\web\twig\variables\CraftVariable;
 use craft\helpers\ArrayHelper;
-use craft\services\Plugins;
 use craft\web\Application as CraftWebApplication;
-use viget\base\Bundle;
 use viget\base\controllers\PartsKitController;
 use viget\base\twigextensions\Extension;
 use viget\base\services\CpNav;
@@ -27,6 +25,7 @@ use viget\base\services\Tracking;
 
 /**
  * Yii Module for setting up custom Twig functionality to keep templates streamlined
+ * @property-read PartsKit $partsKit
  */
 class Module extends \yii\base\Module implements BootstrapInterface
 {

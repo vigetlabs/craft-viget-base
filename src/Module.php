@@ -3,6 +3,8 @@
 namespace viget\base;
 
 use Craft;
+use craft\events\RegisterUrlRulesEvent;
+use craft\web\UrlManager;
 use yii\base\BootstrapInterface;
 use yii\base\Event;
 use craft\events\RegisterCpNavItemsEvent;
@@ -175,6 +177,17 @@ class Module extends \yii\base\Module implements BootstrapInterface
                 }
             );
         }
+
+        // Override rendering of the root /parts-kit URL, so we can render a custom template that
+        // injects the HTML / JS for our parts kit UI.
+        Event::on(
+            UrlManager::class,
+            UrlManager::EVENT_REGISTER_SITE_URL_RULES,
+            function (RegisterUrlRulesEvent $event) {
+                $partsKitDir = self::$config['partsKit']['directory'];
+                $event->rules[$partsKitDir] = 'parts-kit/root';
+            }
+        );
     }
 
     /**

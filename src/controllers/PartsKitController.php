@@ -17,4 +17,11 @@ class PartsKitController extends \craft\web\Controller
             'nav' => Module::getInstance()->partsKit->getNav(),
         ]);
     }
+
+    public function actionRoot(): Response
+    {
+        return $this->renderTemplate(
+            'viget-base/parts-kit-root',
+        );
+    }
 }

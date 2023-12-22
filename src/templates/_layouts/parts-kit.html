@@ -1,7 +1,9 @@
-{% extends craft.viget.partsKit.isRootRequest()
-    ? 'viget-base/_layouts/parts-kit-root'
-    : craft.viget.partsKit.getConfig('layout')
-%}
+{% extends craft.viget.partsKit.getConfig('layout') %}
+
+{# Block all Robots #}
+{% html at head %}
+    <meta name="robots" content="none">
+{% endhtml %}
 
 {% block content %}
     {% block main %}

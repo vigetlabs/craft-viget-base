@@ -8,28 +8,36 @@ nav_order: 4
 
 A [Storybook](https://storybook.js.org/)-esque parts kit framework comes bundled with this module. It automatically generates a navigation and layout to make creating a parts kit very low effort.
 
+The UI for this parts kit is a JavaScript app that is decoupled from the `craft-viget-base` repo. It can work with any CMS or application platform.
+
+See: [Viget Parts Kit UI](https://github.com/vigetlabs/parts-kit)
+
 ## Setup
 
-Inside of your `templates` directory, create a `parts-kit` directory. The module will automatically read all subdirectories and files and generate a navigation.
+Inside your `templates` directory, create a `parts-kit` directory. The module will automatically read all subdirectories and files and generate a navigation.
 
-**Note: This only supports one level of subdirectories.**
+**Note: This supports an infinite level of subdirectories, but typically 1 - 3 is enough.**
 
 ### Example Directory Structure
 
 ```
 |-- templates
     |-- parts-kit
-        |-- button
-            |-- blue.html
-            |-- default.html
-        |-- cta
-            |-- dark.html
-            |-- default.html
+        |-- tokens
+            |-- colors.twig
+            |-- spacing.twig
+        |-- components
+            |-- button
+                |-- blue.twig
+                |-- default.twig
+            |-- card
+                |-- default.twig
+                |-- wide.twig
 ```
 
 This would generate the following navigation:
 
-<img src="resources/parts-kit-nav.png" alt="Parts Kit Navigation">
+![Example of parts kit navigation](resources/parts-kit-nav.png)
 
 ### Component Files
 
@@ -47,15 +55,33 @@ Your parts kit files will need to use the layout that comes with this module:
 
 This layout extends from the `_layouts/app` file that lives in your `templates` directory. This also makes the assumption that the block being used in your layout is named `content`
 
+### Hiding your header & footer in the parts.
+
+If you configure the parts kit to use your project's default layout file, you'll typically end up with a header & footer in all of your parts kit pages.
+
+To hide the header and footer, you can use the following service method to check if your on a parts kit page.
+
+```twig
+{% if not craft.viget.partsKit.isRequest %}
+    {# Include your header or footer #}
+{% endif %}
+```
+
+Another option is to store your scripts and styles in their own partial.
+
+You can then create a separate "Parts Kit" layout that only includes a basic html boilerplate and your projects scripts & styles. 
+
+The customization section shows how to configure a different parts kit layout file.
+
 ## Customization
 
 You can override the following values via the same config file used for all base module features: `/config/viget.php`. These settings should be nested under a `partsKit` key.
 
-| Key         | Default        | Description                              |
-|:------------|:---------------|:-----------------------------------------|
-| `directory` | `parts-kit`    | Directory of your parts kit              |
-| `layout`    | `_layouts/app` | Your layout that should be extended from |
-| `volume`    | `partsKit`     | Craft Asset volume for sample images     |
+| Key         | Default        | Description                                                                               |
+|:------------|:---------------|:------------------------------------------------------------------------------------------|
+| `directory` | `parts-kit`    | Directory of your parts kit                                                               |
+| `layout`    | `_layouts/app` | Your projects primary layout. It should contain the styles and JavaScript for your parts. |
+| `volume`    | `partsKit`     | Craft Asset volume for sample images                                                      |
 
 ### Example
 

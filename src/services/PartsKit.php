@@ -123,6 +123,20 @@ class PartsKit
     }
 
     /**
+     * The JS file for the parts kit UI library. This needs to be added on both the
+     * parts kit root page and on each "part" page.
+     *
+     * unpkg.com respects server. This URL will need to be adjusted when major versions
+     * are released.
+     *
+     * @return string
+     */
+    public static function getUiScriptUrl(): string
+    {
+        return 'https://unpkg.com/@viget/parts-kit@^0/lib/parts-kit.js';
+    }
+
+    /**
      * Remove extension from file name
      *
      * @param string $file

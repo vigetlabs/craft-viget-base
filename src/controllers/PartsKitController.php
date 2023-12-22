@@ -10,6 +10,11 @@ class PartsKitController extends \craft\web\Controller
 {
     protected array|int|bool $allowAnonymous = true;
 
+    /**
+     * Renders the JSON used by our parts kit ui
+     *
+     * @return Response
+     */
     public function actionConfig(): Response
     {
         return $this->asJson([
@@ -18,6 +23,10 @@ class PartsKitController extends \craft\web\Controller
         ]);
     }
 
+    /**
+     * Renders the template for visiting the /parts-kit URL
+     * @return Response
+     */
     public function actionRoot(): Response
     {
         return $this->renderTemplate(

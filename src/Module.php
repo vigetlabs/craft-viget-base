@@ -215,7 +215,6 @@ class Module extends \yii\base\Module implements BootstrapInterface
                 'directory' => 'parts-kit',
                 'layout' => '_layouts/app',
                 'volume' => 'partsKit',
-                'theme' => 'light',
             ],
             'tailwind' => [
                 'configPath' => Craft::getAlias('@config/tailwind/tailwind.json'),

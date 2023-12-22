@@ -56,7 +56,6 @@ You can override the following values via the same config file used for all base
 | `directory` | `parts-kit`    | Directory of your parts kit              |
 | `layout`    | `_layouts/app` | Your layout that should be extended from |
 | `volume`    | `partsKit`     | Craft Asset volume for sample images     |
-| `theme`     | `light`        | Choose from provided light & dark themes or provide your own |
 
 ### Example
 
@@ -69,7 +68,6 @@ return [
         'directory' => 'parts-kit',
         'layout' => '_layouts/app',
         'volume' => 'partsKit',
-        'theme' => 'light',
     ],
     // other base module settings
     'tailwind' => [
@@ -237,48 +235,3 @@ Example:
 ```
 <!-- {% endraw %} -->
 
-## Theming
-
-By default, the **light** theme is applied.
-
-### Dark Mode
-
-You can easily switch to a provided **dark theme** by specifying `dark` in your config:
-
-```php
-// config/parts-kit.php
-
-<?php
-
-return [
-    'theme' => 'dark',
-];
-```
-
-### Customize
-
-Alternatively, you can pass an array with values corresponding to all of the CSS custom properties used to style the theme. For example, the following config contains all of the supported values and would generate a dark blue theme:
-
-```php
-// config/viget.php
-<?php
-
-return [
-    'partsKit' => [
-        'theme' => [
-            'background' => '#2c3e50',
-            'main-background' => '#34495e',
-            'text' => 'white',
-            'nav-icon' => '#2ecc71',
-            'nav-item-text-hover' => 'white',
-            'nav-item-background-hover' => 'rgba(255, 255, 255, 0.1)',
-            'nav-subitem-text-hover' => 'white',
-            'nav-subitem-background-hover' => 'rgba(255, 255, 255, 0.1)',
-            'nav-subitem-background-active' => '#2ecc71',
-            'nav-subitem-text-active' => '#fff',
-            'controls-text' => 'rgba(255, 255, 255, 0.3)',
-            'controls-border' => 'rgba(255, 255, 255, 0.1)',
-        ],
-    ],
-];
-```

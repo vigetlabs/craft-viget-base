@@ -5,6 +5,10 @@
     <meta name="robots" content="none">
 {% endhtml %}
 
+{% js craft.viget.partsKit.getUiScriptUrl() with {
+    type: 'module',
+} %}
+
 {% block content %}
     {% block main %}
     {% endblock %}

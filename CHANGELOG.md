@@ -1,5 +1,15 @@
 # Release Notes for Viget Base Module
 
+## 5.0.5 - 2023-12-22 🎄
+### Added
+- Replaces our old Parts Kit UI with our [Decoupled, JS based interface](https://github.com/vigetlabs/parts-kit) - [#72](https://github.com/vigetlabs/craft-viget-base/issues/72)
+    - This script file is loaded at the root `/parts-kit` URL and on every parts kit part. This allows parts kit pages to use custom elements that are provided by the parts kit UI. 
+- Inserts `<meta name="robots" content="none">` on all parts kit pages.
+### Changed
+- Removes references to parts kit theme config
+- Removes Asset bundle for old parts kit styles. 
+- Inlines "Edit Entry" button styes directly on tag.  
+
 ## 5.0.4 - 2023-10-26
 Add `disableEditButton` option to module config - [#69](https://github.com/vigetlabs/craft-viget-base/issues/69)
 

@@ -37,57 +37,59 @@ class Module extends \yii\base\Module implements BootstrapInterface
 
         self::setInstance($this);
 
-        $this->_loadConfig();
-        $this->_setComponents();
-
-        // Auto-bootstrapping requires that we
-        // manually register our controller paths
-        if (Craft::$app instanceof CraftWebApplication) {
-            Craft::$app->controllerMap['parts-kit'] = [
-                'class' => PartsKitController::class,
-            ];
-        }
-
-        if (Craft::$app->request->getIsSiteRequest()) {
-            $this->_bindEvents();
-
-            Craft::$app->view->registerTwigExtension(new Extension());
-        }
-
-        if (Craft::$app->request->getIsCpRequest()) {
-            $this->_bindCpEvents();
-
-            // Phone home for Airtable inventory
-            if (!Craft::$app->request->getIsAjax() && Craft::$app->isInstalled) {
-                PhoneHome::makeCall();
+        Craft::$app->onInit(function() {
+            $this->_loadConfig();
+            $this->_setComponents();
+    
+            // Auto-bootstrapping requires that we
+            // manually register our controller paths
+            if (Craft::$app instanceof CraftWebApplication) {
+                Craft::$app->controllerMap['parts-kit'] = [
+                    'class' => PartsKitController::class,
+                ];
             }
-        }
-
-        // Always turn on the debug bar and field handles in dev environment (for logged in users)
-        Event::on(
-            CraftWebApplication::class,
-            CraftWebApplication::EVENT_INIT,
-            static function (Event $event) {
-                if (
-                    Craft::$app->env === 'dev' &&
-                    self::$config['yiiDebugBar'] === true &&
-                    Craft::$app->user->checkPermission('accessCp') &&
-                    !Craft::$app->request->getIsConsoleRequest()
-                ) {
-                    /**
-                     * Enables Yii debug bar when in dev mode
-                     * @see craft\web\Application::debugBootstrap()
-                     */
-                    $request = Craft::$app->getRequest();
-                    $request->headers->add('X-Debug', 'enable');
+    
+            if (Craft::$app->request->getIsSiteRequest()) {
+                $this->_bindEvents();
+    
+                Craft::$app->view->registerTwigExtension(new Extension());
+            }
+    
+            if (Craft::$app->request->getIsCpRequest()) {
+                $this->_bindCpEvents();
+    
+                // Phone home for Airtable inventory
+                if (!Craft::$app->request->getIsAjax() && Craft::$app->isInstalled) {
+                    PhoneHome::makeCall();
                 }
             }
-        );
-
-        Craft::info(
-            'viget base loaded',
-            __METHOD__
-        );
+    
+            // Always turn on the debug bar and field handles in dev environment (for logged in users)
+            Event::on(
+                CraftWebApplication::class,
+                CraftWebApplication::EVENT_INIT,
+                static function (Event $event) {
+                    if (
+                        Craft::$app->env === 'dev' &&
+                        self::$config['yiiDebugBar'] === true &&
+                        Craft::$app->user->checkPermission('accessCp') &&
+                        !Craft::$app->request->getIsConsoleRequest()
+                    ) {
+                        /**
+                         * Enables Yii debug bar when in dev mode
+                         * @see craft\web\Application::debugBootstrap()
+                         */
+                        $request = Craft::$app->getRequest();
+                        $request->headers->add('X-Debug', 'enable');
+                    }
+                }
+            );
+    
+            Craft::info(
+                'viget base loaded',
+                __METHOD__
+            ); 
+        });
     }
 
     /**

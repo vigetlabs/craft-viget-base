@@ -1,5 +1,9 @@
 # Release Notes for Viget Base Module
 
+## 5.0.6 - 2024-2-22
+### Fixed
+- Defers initialization of the module until after Craft itself has initialized
+
 ## 5.0.5 - 2023-12-22 🎄
 ### Added
 - Replaces our old Parts Kit UI with our [Decoupled, JS based interface](https://github.com/vigetlabs/parts-kit) - [#72](https://github.com/vigetlabs/craft-viget-base/issues/72)

@@ -35,12 +35,12 @@ class Module extends \yii\base\Module implements BootstrapInterface
     {
         Craft::setAlias('@viget/base', __DIR__);
 
-        self::setInstance($this);
 
         Craft::$app->onInit(function() {
+            self::setInstance($this);
             $this->_loadConfig();
             $this->_setComponents();
-    
+
             // Auto-bootstrapping requires that we
             // manually register our controller paths
             if (Craft::$app instanceof CraftWebApplication) {
@@ -48,22 +48,22 @@ class Module extends \yii\base\Module implements BootstrapInterface
                     'class' => PartsKitController::class,
                 ];
             }
-    
+
             if (Craft::$app->request->getIsSiteRequest()) {
                 $this->_bindEvents();
-    
+
                 Craft::$app->view->registerTwigExtension(new Extension());
             }
-    
+
             if (Craft::$app->request->getIsCpRequest()) {
                 $this->_bindCpEvents();
-    
+
                 // Phone home for Airtable inventory
                 if (!Craft::$app->request->getIsAjax() && Craft::$app->isInstalled) {
                     PhoneHome::makeCall();
                 }
             }
-    
+
             // Always turn on the debug bar and field handles in dev environment (for logged in users)
             Event::on(
                 CraftWebApplication::class,
@@ -84,11 +84,11 @@ class Module extends \yii\base\Module implements BootstrapInterface
                     }
                 }
             );
-    
+
             Craft::info(
                 'viget base loaded',
                 __METHOD__
-            ); 
+            );
         });
     }
 

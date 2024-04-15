@@ -112,7 +112,7 @@ class PartsKit
                 continue;
             }
 
-            $parentNode->children[] = $node;
+            array_unshift($parentNode->children, $node);
             unset($result[$node->path]);
         }
 

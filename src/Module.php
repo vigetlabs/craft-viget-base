@@ -3,6 +3,7 @@
 namespace viget\base;
 
 use Craft;
+use craft\base\Element;
 use craft\events\RegisterUrlRulesEvent;
 use craft\web\UrlManager;
 use yii\base\BootstrapInterface;
@@ -26,6 +27,7 @@ use viget\base\services\Tracking;
 /**
  * Yii Module for setting up custom Twig functionality to keep templates streamlined
  * @property-read PartsKit $partsKit
+ * @property-read CpNav $cpNav
  */
 class Module extends \yii\base\Module implements BootstrapInterface
 {
@@ -137,9 +139,11 @@ class Module extends \yii\base\Module implements BootstrapInterface
                     Craft::$app->user->checkPermission('accessCp')
                 ) {
 
-                    $element = Craft::$app->getUrlManager()->getMatchedElement();
+                    /** @var UrlManager $urlManager */
+                    $urlManager = Craft::$app->getUrlManager();
+                    $element = $urlManager->getMatchedElement();
 
-                    if (!$element) {
+                    if ($element instanceof Element === false) {
                         return;
                     }
 

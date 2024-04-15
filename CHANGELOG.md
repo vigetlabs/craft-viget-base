@@ -1,5 +1,13 @@
 # Release Notes for Viget Base Module
 
+## 5.0.8 (Unreleased)
+- Remove Phone Home (Airtable) feature. Use the [standalone Phone Home plugin](https://github.com/vigetlabs/craft-phone-home).
+- Add PHPStan
+
+## 5.0.7 - 2024-2-27
+### Fixed
+- Set module instance in `onInit` event
+
 ## 5.0.6 - 2024-2-22
 ### Fixed
 - Defers initialization of the module until after Craft itself has initialized

@@ -19,7 +19,6 @@ use viget\base\controllers\PartsKitController;
 use viget\base\twigextensions\Extension;
 use viget\base\services\CpNav;
 use viget\base\services\Util;
-use viget\base\services\PhoneHome;
 use viget\base\services\PartsKit;
 use viget\base\services\Tailwind;
 use viget\base\services\Tracking;
@@ -59,11 +58,6 @@ class Module extends \yii\base\Module implements BootstrapInterface
 
             if (Craft::$app->request->getIsCpRequest()) {
                 $this->_bindCpEvents();
-
-                // Phone home for Airtable inventory
-                if (!Craft::$app->request->getIsAjax() && Craft::$app->isInstalled) {
-                    PhoneHome::makeCall();
-                }
             }
 
             // Always turn on the debug bar and field handles in dev environment (for logged in users)

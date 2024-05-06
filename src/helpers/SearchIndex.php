@@ -12,14 +12,21 @@ class SearchIndex
     /**
      * Optimizes Craft's searchindex table (can take a long time)
      * @return int number of rows affected by the execution.
-     * @throws Exception execution failed
+     * @throws Exception execution failed | unsupported driver
      * @see \yii\db\Command::execute()
      */
     public static function optimize()
     {
         $db = Craft::$app->getDb();
+        $driverName = $db->driverName;
         $tableName = self::$tableName;
 
-        return $db->createCommand("OPTIMIZE TABLE {$tableName}")->execute();
+        if ($driverName === 'mysql') {
+            return $db->createCommand("OPTIMIZE TABLE {$tableName}")->execute();
+        } elseif ($driverName === 'pgsql') {
+            return $db->createCommand("VACUUM ANALYZE {$tableName}")->execute();
+        } else {
+            throw new \Exception('Unsupported database driver');
+        }
     }
 }

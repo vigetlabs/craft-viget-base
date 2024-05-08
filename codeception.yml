@@ -9,6 +9,7 @@ paths:
 bootstrap: _bootstrap.php
 params:
   - env
+  - tests/.env
 modules:
   config:
     \craft\test\Craft:

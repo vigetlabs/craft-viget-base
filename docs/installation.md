@@ -20,14 +20,3 @@ This means that it’s automatically loaded with Craft, without you having to in
 
 ### Migration
 If you're upgrading an old project, remove all of the bootstrapping code (config/app.php or Yii submodule)
-
-## Configure Phone Home
-
-Add the following ENV variables to your enviroment file in all environments
-
-```
-AIRTABLE_API_KEY
-AIRTABLE_BASE
-```
-
-Using the base ID from the Craft Inventory Airtable and the API key from 1Password for the Viget Airtable account.

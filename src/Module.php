@@ -3,6 +3,7 @@
 namespace viget\base;
 
 use Craft;
+use craft\base\Element;
 use craft\events\RegisterUrlRulesEvent;
 use craft\web\UrlManager;
 use yii\base\BootstrapInterface;
@@ -18,7 +19,6 @@ use viget\base\controllers\PartsKitController;
 use viget\base\twigextensions\Extension;
 use viget\base\services\CpNav;
 use viget\base\services\Util;
-use viget\base\services\PhoneHome;
 use viget\base\services\PartsKit;
 use viget\base\services\Tailwind;
 use viget\base\services\Tracking;
@@ -26,6 +26,7 @@ use viget\base\services\Tracking;
 /**
  * Yii Module for setting up custom Twig functionality to keep templates streamlined
  * @property-read PartsKit $partsKit
+ * @property-read CpNav $cpNav
  */
 class Module extends \yii\base\Module implements BootstrapInterface
 {
@@ -57,11 +58,6 @@ class Module extends \yii\base\Module implements BootstrapInterface
 
             if (Craft::$app->request->getIsCpRequest()) {
                 $this->_bindCpEvents();
-
-                // Phone home for Airtable inventory
-                if (!Craft::$app->request->getIsAjax() && Craft::$app->isInstalled) {
-                    PhoneHome::makeCall();
-                }
             }
 
             // Always turn on the debug bar and field handles in dev environment (for logged in users)
@@ -137,9 +133,11 @@ class Module extends \yii\base\Module implements BootstrapInterface
                     Craft::$app->user->checkPermission('accessCp')
                 ) {
 
-                    $element = Craft::$app->getUrlManager()->getMatchedElement();
+                    /** @var UrlManager $urlManager */
+                    $urlManager = Craft::$app->getUrlManager();
+                    $element = $urlManager->getMatchedElement();
 
-                    if (!$element) {
+                    if ($element instanceof Element === false) {
                         return;
                     }
 

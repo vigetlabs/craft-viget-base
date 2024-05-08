@@ -1,0 +1,18 @@
+name: ci
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - 'v5'
+  pull_request:
+permissions:
+  contents: read
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  tests:
+    name: Tests
+    uses: ./.github/workflows/codecept.yml
+    with:
+      php_versions: '["8.2"]'

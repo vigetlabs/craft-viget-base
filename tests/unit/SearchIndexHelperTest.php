@@ -15,9 +15,12 @@ class SearchIndexHelperTest extends Unit
         Craft::$app->getDb()->createCommand()->truncateTable(Table::SEARCHINDEX)->execute();
     }
 
-    public function testOptimizeForMySql()
+    public function testOptimizeForMysql()
     {
-        Craft::$app->getDb()->driverName = 'mysql';
+        if (Craft::$app->getDb()->driverName !== 'mysql') {
+            $this->markTestSkipped('Skip MySQL testing when driver is not mysql');
+        }
+
         $result = SearchIndex::optimize();
 
         // Assert: Verify that the result is an integer (number of rows affected)
@@ -26,7 +29,10 @@ class SearchIndexHelperTest extends Unit
 
     public function testOptimizeForPostgres()
     {
-        Craft::$app->getDb()->driverName = 'pgsql';
+        if (Craft::$app->getDb()->driverName !== 'pgsql') {
+            $this->markTestSkipped('Skip PostgreSQL testing when driver is not pgsql');
+        }
+
         $result = SearchIndex::optimize();
 
         // Assert: Verify that the result is an integer (number of rows affected)

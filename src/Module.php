@@ -14,7 +14,9 @@ use craft\web\twig\variables\Cp;
 use craft\web\View;
 use craft\web\twig\variables\CraftVariable;
 use craft\helpers\ArrayHelper;
+use craft\console\Application as CraftConsoleApplication;
 use craft\web\Application as CraftWebApplication;
+use viget\base\console\controllers\SearchIndexController;
 use viget\base\controllers\PartsKitController;
 use viget\base\twigextensions\Extension;
 use viget\base\services\CpNav;
@@ -36,11 +38,23 @@ class Module extends \yii\base\Module implements BootstrapInterface
     {
         Craft::setAlias('@viget/base', __DIR__);
 
+        
+
 
         Craft::$app->onInit(function() {
             self::setInstance($this);
             $this->_loadConfig();
             $this->_setComponents();
+
+            // manually register console controller paths
+            if (Craft::$app instanceof CraftConsoleApplication) {
+                $this->controllerNamespace = 'viget\base\console\controllers';
+
+                // Optionally add controller map or configure components
+                Craft::$app->controllerMap['viget-searchindex'] = [
+                    'class' => SearchIndexController::class,
+                ];
+            }
 
             // Auto-bootstrapping requires that we
             // manually register our controller paths

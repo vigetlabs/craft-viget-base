@@ -6,18 +6,32 @@ nav_order: 7
 
 # Testing
 
-This repo utilizes Docker in order to run the test suite.
+This repo utilizes DDEV in order to run the test suite locally. 
 
-1. Install [Docker Desktop for Mac](https://docs.docker.com/docker-for-mac/install/).
+Tests are run in GitHub Actions when PRs are opened.  
 
-2. Build the containers
+### Install DDEV
+ [DDEV](https://ddev.com/).
 
-    Run `docker-compose build`. This will take a little while.
+### Launch DDEV
+```
+ddev start
+```
 
-3. Run the app
+### Run the tests
 
-    Run `docker-compose up`.
+```
+# Run all tests
+ddev codecept run unit
 
-4. Run the tests
+# Run specific test
+ddev codecept run unit PartsKitTest
 
-    Run `bin/codecept run`
+# Run without database setup (must run without env flag first)
+ddev codecept run unit PartsKitTest --env fast
+
+```
+
+Run specific tests 
+```
+```

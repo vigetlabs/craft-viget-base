@@ -21,3 +21,13 @@ modules:
       cleanup: true
       transaction: true
       dbSetup: { clean: true, setupCraft: true }
+env:
+  # Call codecept run <command> --env fast
+  # Skips slow DB tasks. Test must be run without the --env
+  # flag at least once before this will work properly.
+  fast:
+    modules:
+      config:
+        \craft\test\Craft:
+          # Don't clean out the database
+          dbSetup: { clean: false, setupCraft: false, applyMigrations: false }

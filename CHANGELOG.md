@@ -1,5 +1,10 @@
 # Release Notes for Viget Base Module
 
+## 6.0.0 - 2025-02-01
+Craft CMS 5 Relase 
+- Updates Composer dependencies to be Craft CMS 5 compatible
+- Includes removed features from Craft Viget Base 5.0.8
+
 ## 5.0.8 (Unreleased)
 - Remove Phone Home (Airtable) feature. Use the [standalone Phone Home plugin](https://github.com/vigetlabs/craft-phone-home).
 - Add PHPStan

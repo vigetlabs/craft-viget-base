@@ -21,8 +21,7 @@
     ],
     "require": {
         "php": "^8.2",
-        "craftcms/cms": "^5.0.0",
-        "sleiman/airtable-php": "^2.4"
+        "craftcms/cms": "^5.0.0"
     },
     "require-dev": {
         "vlucas/phpdotenv": "^5.5",

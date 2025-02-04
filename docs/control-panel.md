@@ -51,14 +51,3 @@ return [
     ],
 ];
 ```
-
-## Airtable Inventory
-
-We have an Airtable setup to store the inventory of all of our Craft sites. A request will be made (as a queue job) once per day when someone visits the CP.
-
-You will need to add the following `ENV` values:
-
-```
-AIRTABLE_API_KEY
-AIRTABLE_BASE
-```

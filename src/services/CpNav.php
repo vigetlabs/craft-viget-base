@@ -50,10 +50,11 @@ class CpNav
 
         // Add recent entries for quick access
         if ($settings['showRecentEntries'] > 0) {
-            $entries = Entry::findAll([
-                'orderBy' => 'dateUpdated desc',
-                'limit' => $settings['showRecentEntries'],
-            ]);
+            $entries = Entry::find()
+                ->orderBy('dateUpdated desc')
+                ->limit($settings['showRecentEntries'])
+                ->section('*') // Only returns entries without owners
+                ->all();
 
             foreach ($entries as $entry) {
                 $navItems[] = [

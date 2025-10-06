@@ -1,5 +1,9 @@
 # Release Notes for Viget Base Module
 
+## 6.0.1 - 2025-10-06
+### Changed
+- Ignore parts kit files prefixed with underscore
+
 ## 6.0.0 - 2025-02-03
 Craft CMS 5 Relase 
 - Updates Composer dependencies to be Craft CMS 5 compatible

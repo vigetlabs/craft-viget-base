@@ -87,7 +87,13 @@ class PartsKit
 
             $path = str_replace($partsPath, '', $templatePath);
             $pathParts = explode('/', $path);
-            $title = self::_formatTitle(end($pathParts));
+            $lastPart = end($pathParts);
+
+            if(str_starts_with($lastPart, '_')) {
+                continue;
+            }
+
+            $title = self::_formatTitle($lastPart);
             $url = is_file($templatePath)
                 ? '/' . $partsKitFolderName . '/' . self::_removeExtension($path)
                 : null;

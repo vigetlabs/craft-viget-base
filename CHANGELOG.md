@@ -1,5 +1,18 @@
 # Release Notes for Viget Base Module
 
+## 6.1.0 (Unreleased)
+### Added
+- `viget-searchindex/optimize --queue` pushes a `viget\base\jobs\OptimizeSearchIndex` job, so a queue worker runs the optimization and the Queue Manager tracks it.
+- `viget-searchindex/optimize --full` and `SearchIndex::optimize(full: true)` force a table rebuild.
+
+### Changed
+- `SearchIndex::optimize()` checks the table's storage engine first. On InnoDB it only runs `OPTIMIZE TABLE` when the server has `innodb_optimize_fulltext_only` enabled, because the table's FULLTEXT index otherwise forces a full copy that blocks search index writes and replays on read replicas for no gain. MyISAM and PostgreSQL behave as before.
+- `SearchIndex::optimize()` returns a `viget\base\models\OptimizeResult` (`ran`, `message`) instead of a row count, and `SearchIndex::$tableName` is replaced by `SearchIndex::tableName()`, which returns the real table name.
+
+### Fixed
+- `viget-searchindex/optimize` printed the unparsed `{{%searchindex}}` token instead of the table name.
+- `ddev codecept` failed on Craft 5 because the DDEV environment did not set `DB_DRIVER`, so Craft created tables with the `utf8` charset and a `utf8mb4` collation.
+
 ## 6.0.1 - 2025-10-06
 ### Changed
 - Ignore parts kit files prefixed with underscore

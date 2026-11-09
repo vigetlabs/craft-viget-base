@@ -8,6 +8,7 @@ return [
         'type' => 'channel',
         'enableVersioning' => false,
         'propagationMethod' => 'all',
-        'uid' => 'section-1000---------------------uid'
+        'uid' => 'section-1000---------------------uid',
+        'entryTypes' => ['1000'],
     ],
 ];

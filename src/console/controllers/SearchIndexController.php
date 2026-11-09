@@ -8,6 +8,7 @@ use Throwable;
 use viget\base\helpers\SearchIndex;
 use viget\base\jobs\OptimizeSearchIndex;
 use yii\console\ExitCode;
+use yii\helpers\Console;
 
 /**
  * Maintains Craft's searchindex table.
@@ -16,12 +17,14 @@ class SearchIndexController extends Controller
 {
     /**
      * @var bool Rebuild the table even when its storage engine would not benefit. On InnoDB that
-     * copies the whole table and blocks search index writes while it runs.
+     * copies the whole table, blocks search index writes while it runs, and repeats the copy on
+     * read replicas. On PostgreSQL it runs VACUUM FULL, which locks the table for reads too.
      */
     public bool $full = false;
 
     /**
      * @var bool Push the work to the queue, so a worker runs it and the Queue Manager tracks it.
+     * Needs a dedicated queue worker, not Craft's web-request queue runner.
      */
     public bool $queue = false;
 
@@ -43,6 +46,13 @@ class SearchIndexController extends Controller
     {
         if ($this->queue) {
             $id = Queue::push(new OptimizeSearchIndex(['full' => $this->full]));
+
+            if ($id === null) {
+                $this->stderr("The queue did not accept the search index job.\n", Console::FG_RED);
+
+                return ExitCode::UNSPECIFIED_ERROR;
+            }
+
             $this->success(sprintf('Queued job %s to %s the search index table.', $id, $this->full ? 'rebuild' : 'optimize'));
 
             return ExitCode::OK;
@@ -51,7 +61,7 @@ class SearchIndexController extends Controller
         try {
             $result = SearchIndex::optimize($this->full);
         } catch (Throwable $e) {
-            $this->failure("Failed to optimize the search index table: {$e->getMessage()}");
+            $this->stderr("Failed to optimize the search index table: {$e->getMessage()}\n", Console::FG_RED);
 
             return ExitCode::UNSPECIFIED_ERROR;
         }

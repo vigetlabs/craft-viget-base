@@ -5,9 +5,16 @@
 - `viget-searchindex/optimize --queue` pushes a `viget\base\jobs\OptimizeSearchIndex` job, so a queue worker runs the optimization and the Queue Manager tracks it.
 - `viget-searchindex/optimize --full` and `SearchIndex::optimize(full: true)` force a table rebuild.
 
+### Breaking
+- `SearchIndex::optimize()` returns a `viget\base\models\OptimizeResult` (`ran`, `message`) instead of a row count.
+
 ### Changed
-- `SearchIndex::optimize()` checks the table's storage engine first. On InnoDB it only runs `OPTIMIZE TABLE` when the server has `innodb_optimize_fulltext_only` enabled, because the table's FULLTEXT index otherwise forces a full copy that blocks search index writes and replays on read replicas for no gain. MyISAM and PostgreSQL behave as before.
-- `SearchIndex::optimize()` returns a `viget\base\models\OptimizeResult` (`ran`, `message`) instead of a row count, and `SearchIndex::$tableName` is replaced by `SearchIndex::tableName()`, which returns the real table name.
+- `SearchIndex::optimize()` checks the table's storage engine first. On InnoDB it only runs `OPTIMIZE TABLE` when the server has `innodb_optimize_fulltext_only` enabled, because the table's FULLTEXT index otherwise forces a full copy that blocks search index writes and replays on read replicas for no gain. That statement is not written to the binary log, so replicas never run it with their own setting. MyISAM and PostgreSQL behave as before.
+- `SearchIndex::optimize()` throws a `yii\base\NotSupportedException` for a storage engine other than InnoDB, MyISAM or Aria, including when the engine cannot be looked up, and a `yii\db\Exception` when MySQL reports an error for the maintenance statement.
+- `viget-searchindex/optimize` writes failures to stderr.
+
+### Deprecated
+- `SearchIndex::$tableName` is deprecated. Use `SearchIndex::tableName()`, which returns the real table name.
 
 ### Fixed
 - `viget-searchindex/optimize` printed the unparsed `{{%searchindex}}` token instead of the table name.

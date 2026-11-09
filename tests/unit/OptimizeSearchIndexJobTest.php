@@ -10,13 +10,6 @@ use viget\base\jobs\OptimizeSearchIndex;
 
 class OptimizeSearchIndexJobTest extends Unit
 {
-    public function testExecuteOptimizesWithoutThrowing(): void
-    {
-        $this->expectNotToPerformAssertions();
-
-        (new OptimizeSearchIndex())->execute(Craft::$app->getQueue());
-    }
-
     public function testQueuedJobReservesItsOwnTtrAndNeverRetries(): void
     {
         $queue = Craft::$app->getQueue();

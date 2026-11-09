@@ -17,8 +17,10 @@ class OptimizeSearchIndex extends BaseJob implements RetryableJobInterface
 {
     /**
      * Seconds the queue reserves the job for. A table rebuild can run far past the queue's default
-     * of 300, and once the reservation expires another worker takes the job and queues a second
-     * rebuild behind the first on the table's metadata lock.
+     * of 300. Once the reservation expires, the next worker to pick the job up drops it because it
+     * never retries, so the Queue Manager would stop showing a rebuild that is still running. The
+     * cost is that a job whose worker dies stays reserved until this runs out, and is then dropped
+     * without being marked failed.
      */
     public const TTR = 6 * 60 * 60;
 
@@ -35,7 +37,12 @@ class OptimizeSearchIndex extends BaseJob implements RetryableJobInterface
     {
         $result = SearchIndex::optimize($this->full);
 
-        Craft::info($result->message, __METHOD__);
+        // A skip completes the job like a run does, so log it louder to keep a no-op cron visible.
+        if ($result->ran) {
+            Craft::info($result->message, __METHOD__);
+        } else {
+            Craft::warning($result->message, __METHOD__);
+        }
     }
 
     /**

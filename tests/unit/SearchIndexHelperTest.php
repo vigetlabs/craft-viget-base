@@ -33,6 +33,9 @@ class SearchIndexHelperTest extends Unit
             $this->markTestSkipped('Skip PostgreSQL testing when driver is not pgsql');
         }
 
+        // PostgreSQL refuses VACUUM inside a transaction block, so commit the one Codeception wraps the test in.
+        Craft::$app->getDb()->getTransaction()?->commit();
+
         $result = SearchIndex::optimize();
 
         // Assert: Verify that the result is an integer (number of rows affected)

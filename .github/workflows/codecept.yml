@@ -10,6 +10,7 @@ jobs:
   tests:
     runs-on: ${{ matrix.operating-system }}
     strategy:
+      fail-fast: false
       matrix:
         operating-system: ["ubuntu-latest"]
         php-versions: ${{ fromJSON(inputs.php_versions) }}

@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - 'v5'
+      - 'v6'
   pull_request:
 permissions:
   contents: read
@@ -15,4 +15,4 @@ jobs:
     name: Tests
     uses: ./.github/workflows/codecept.yml
     with:
-      php_versions: '["8.2"]'
+      php_versions: '["8.2", "8.3", "8.4", "8.5"]'

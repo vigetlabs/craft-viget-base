@@ -14,5 +14,5 @@ class EntriesFixture extends EntryFixture
     /**
      * @inheritdoc
      */
-    public $depends = [SectionsFixture::class, EntryTypesFixture::class];
+    public $depends = [SectionEntryTypesFixture::class];
 }

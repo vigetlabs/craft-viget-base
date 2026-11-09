@@ -16,9 +16,4 @@ class EntryTypesFixture extends ActiveFixture
      * @inheritdoc
      */
     public $modelClass = EntryType::class;
-
-    /**
-     * @inheritdoc
-     */
-    public $depends = [SectionsFixture::class];
 }

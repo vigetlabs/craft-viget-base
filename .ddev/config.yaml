@@ -16,6 +16,7 @@ mutagen_enabled: false
 use_dns_when_possible: true
 composer_version: "2"
 web_environment:
+  - DB_DRIVER=mysql
   - DB_DSN=mysql:host=db;port=3306;dbname=db
   - DB_USER=db
   - DB_PASSWORD=db

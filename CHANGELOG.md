@@ -1,6 +1,6 @@
 # Release Notes for Viget Base Module
 
-## 6.1.0 (Unreleased)
+## 6.1.0 - 2026-11-10
 ### Added
 - `viget-searchindex/optimize --queue` pushes a `viget\base\jobs\OptimizeSearchIndex` job, so a queue worker runs the optimization and the Queue Manager tracks it.
 - `viget-searchindex/optimize --full` and `SearchIndex::optimize(full: true)` force a table rebuild.
